@@ -1,0 +1,11 @@
+todo Wake up
+deadline Go to lecture /by 12pm
+event Eat lunch /from 1pm /to 2pm
+list
+mark 1
+mark 3
+list
+unmark 1
+list
+event Jump_Around_Like_This /from blablabla /to dadada
+bye
