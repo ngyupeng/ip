@@ -98,5 +98,45 @@
     event <description> /from <from> /to <to>
     ____________________________________________________________
     ____________________________________________________________
+    Oh no! Your field(s) provided caused the following error:
+    Expected: integer value in range [1, 4]
+    Given: 0
+    ____________________________________________________________
+    ____________________________________________________________
+    Oh no! Your field(s) provided caused the following error:
+    Expected: integer value in range [1, 4]
+    Given: 5
+    ____________________________________________________________
+    ____________________________________________________________
+    Oh no! Your field(s) provided caused the following error:
+    Expected: integer value for task index
+    Given: nothing
+    ____________________________________________________________
+    ____________________________________________________________
+    Noted. I've removed this task:
+      [D][ ] Go to lecture (by: 12pm)
+    Now you have 3 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] Wake up
+    2. [E][X] Eat lunch (from: 1pm to: 2pm)
+    3. [E][ ] Jump_Around_Like_This (from: blablabla to: dadada)
+    ____________________________________________________________
+    ____________________________________________________________
+    Oh no! Your command is missing a field!
+    Please output the command in the following format:
+    mark <index>
+    ____________________________________________________________
+    ____________________________________________________________
+    Oh no! Your command is missing a field!
+    Please output the command in the following format:
+    unmark <index>
+    ____________________________________________________________
+    ____________________________________________________________
+    Oh no! Your command is missing a field!
+    Please output the command in the following format:
+    delete <index>
+    ____________________________________________________________
+    ____________________________________________________________
     Bye. Hope to see you again soon!
     ____________________________________________________________

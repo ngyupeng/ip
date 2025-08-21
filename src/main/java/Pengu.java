@@ -27,6 +27,8 @@ public class Pengu {
                     processDeadline(input);
                 } else if (input.startsWith("event")) {
                     processEvent(input);
+                } else if (input.startsWith("delete")) {
+                    processDelete(input);
                 } else {
                     throw new InvalidCommandException();
                 }
@@ -63,7 +65,14 @@ public class Pengu {
     }
 
     private void processMark(String input) throws PenguException {
-        String taskIndexString = input.split(" ", 2)[1];
+        final String markFormat = "mark <index>";
+
+        String[] inputSplit = input.split(" ", 2);
+        if (inputSplit.length < 2 || inputSplit[1].isEmpty()) {
+            throw new MissingFieldException(markFormat);
+        }
+
+        String taskIndexString = inputSplit[1];
 
         int taskIndex = parseTaskIndex(taskIndexString) - 1;
         taskList.get(taskIndex).markAsDone();
@@ -73,13 +82,36 @@ public class Pengu {
     }
 
     private void processUnmark(String input) throws PenguException {
-        String taskIndexString = input.split(" ", 2)[1];
+        final String unmarkFormat = "unmark <index>";
+
+        String[] inputSplit = input.split(" ", 2);
+        if (inputSplit.length < 2 || inputSplit[1].isEmpty()) {
+            throw new MissingFieldException(unmarkFormat);
+        }
+
+        String taskIndexString = inputSplit[1];
 
         int taskIndex = parseTaskIndex(taskIndexString) - 1;
         taskList.get(taskIndex).markAsUndone();
 
         String message = "OK, I've marked this task as not done yet:\n  " + taskList.get(taskIndex);
         printMessage(message);
+    }
+
+    private void processDelete(String input) throws PenguException {
+        final String deleteFormat = "delete <index>";
+
+        String[] inputSplit = input.split(" ", 2);
+        if (inputSplit.length < 2 || inputSplit[1].isEmpty()) {
+            throw new MissingFieldException(deleteFormat);
+        }
+
+        String taskIndexString = inputSplit[1];
+
+        int taskIndex = parseTaskIndex(taskIndexString) - 1;
+
+        printDeleteTaskMessage(taskList.get(taskIndex));
+        taskList.remove(taskIndex);
     }
     
     private void processTodo(String input) throws PenguException {
@@ -169,6 +201,12 @@ public class Pengu {
     private void printAddTaskMessage(Task task) {
         String message = "Got it, I've added this task:\n  " + task + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list.";
+        printMessage(message);
+    }
+
+    private void printDeleteTaskMessage(Task task) {
+        String message = "Noted. I've removed this task:\n  " + task + "\n"
+                + "Now you have " + (taskList.size() - 1) + " tasks in the list.";
         printMessage(message);
     }
 
