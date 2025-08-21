@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Pengu {
     private static final String NAME = "Pengu";
 
@@ -11,19 +13,40 @@ public class Pengu {
         printMessage(exitMessage);
     }
 
+    private static void echo(String message) {
+        printMessage(message);
+    }
+
+
     private static void printMessage(String message) {
+        final String PADDING = " ".repeat(4);
         printLine();
-        System.out.println(message);
+
+        String[] lines = message.split("\n");
+        for (String line : lines) {
+            System.out.println(PADDING + line);
+        }
+
         printLine();
     }
 
     private static void printLine() {
         final String LINE = "_".repeat(60);
-        System.out.println(LINE);
+        final String PADDING = " ".repeat(4);
+        System.out.println(PADDING + LINE);
     }
 
     public static void main(String[] args) {
         greet();
-        exit();
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.equals("bye")) {
+                exit();
+                break;
+            }
+            echo(input);
+        }
     }
 }
