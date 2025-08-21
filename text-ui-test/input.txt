@@ -8,4 +8,14 @@ list
 unmark 1
 list
 event Jump_Around_Like_This /from blablabla /to dadada
+mark 0
+unmark 0
+mark 5
+unmark 5
+mark bob
+unmark alice
+blah
+todo
+deadline hello
+event go out /from bob
 bye
