@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Pengu {
     private static final String NAME = "Pengu";
-    private final ArrayList<String> taskList = new ArrayList<>();
+    private final ArrayList<Task> taskList = new ArrayList<>();
 
     public void run() {
         greet();
@@ -16,6 +16,10 @@ public class Pengu {
                 break;
             } else if (input.equals("list")) {
                 printTaskList();
+            } else if (input.startsWith("mark ")) {
+                processMark(input);
+            } else if (input.startsWith("unmark ")) {
+                processUnmark(input);
             } else {
                 addTask(input);
             }
@@ -32,10 +36,10 @@ public class Pengu {
         printMessage(exitMessage);
     }
 
-    private void addTask(String task) {
-        taskList.add(task);
+    private void addTask(String taskDesc) {
+        taskList.add(new Task(taskDesc));
 
-        String addTaskMessage = "added: " + task;
+        String addTaskMessage = "added: " + taskDesc;
         printMessage(addTaskMessage);
     }
 
@@ -53,6 +57,32 @@ public class Pengu {
         }
 
         printMessage(taskListString.toString());
+    }
+
+    private void processMark(String input) {
+        int spaceIndex = input.indexOf(" ");
+        String taskIndexString = input.substring(spaceIndex + 1);
+
+        // TODO: Check taskIndexString is an integer
+
+        int taskIndex = Integer.parseInt(taskIndexString) - 1;
+        taskList.get(taskIndex).markAsDone();
+
+        String message = "Nice! I've marked this task as done:\n  " + taskList.get(taskIndex);
+        printMessage(message);
+    }
+
+    private void processUnmark(String input) {
+        int spaceIndex = input.indexOf(" ");
+        String taskIndexString = input.substring(spaceIndex + 1);
+
+        // TODO: Check taskIndexString is an integer
+
+        int taskIndex = Integer.parseInt(taskIndexString) - 1;
+        taskList.get(taskIndex).markAsUndone();
+
+        String message = "OK, I've marked this task as not done yet:\n  " + taskList.get(taskIndex);
+        printMessage(message);
     }
 
     private void printMessage(String message) {
