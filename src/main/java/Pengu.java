@@ -1,7 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Pengu {
     private static final String NAME = "Pengu";
+    private final ArrayList<String> taskList = new ArrayList<>();
 
     public void run() {
         greet();
@@ -12,8 +14,11 @@ public class Pengu {
             if (input.equals("bye")) {
                 exit();
                 break;
+            } else if (input.equals("list")) {
+                printTaskList();
+            } else {
+                addTask(input);
             }
-            echo(input);
         }
     }
 
@@ -27,8 +32,27 @@ public class Pengu {
         printMessage(exitMessage);
     }
 
-    private void echo(String message) {
-        printMessage(message);
+    private void addTask(String task) {
+        taskList.add(task);
+
+        String addTaskMessage = "added: " + task;
+        printMessage(addTaskMessage);
+    }
+
+    private void printTaskList() {
+        StringBuilder taskListString = new StringBuilder();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            // Every line except the last should end with newline
+            if (i > 0) {
+                taskListString.append("\n");
+            }
+
+            String taskString = (i + 1) + ". " + taskList.get(i);
+            taskListString.append(taskString);
+        }
+
+        printMessage(taskListString.toString());
     }
 
     private void printMessage(String message) {
