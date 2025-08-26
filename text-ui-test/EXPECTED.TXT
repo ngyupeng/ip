@@ -71,12 +71,12 @@
     ____________________________________________________________
     ____________________________________________________________
     Oh no! Your field(s) provided caused the following error:
-    Expected: integer value for task index
+    Expected: integer value field
     Given: bob
     ____________________________________________________________
     ____________________________________________________________
     Oh no! Your field(s) provided caused the following error:
-    Expected: integer value for task index
+    Expected: integer value field
     Given: alice
     ____________________________________________________________
     ____________________________________________________________
@@ -109,7 +109,7 @@
     ____________________________________________________________
     ____________________________________________________________
     Oh no! Your field(s) provided caused the following error:
-    Expected: integer value for task index
+    Expected: integer value field
     Given: nothing
     ____________________________________________________________
     ____________________________________________________________

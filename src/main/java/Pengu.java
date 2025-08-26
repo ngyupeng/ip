@@ -11,26 +11,23 @@ public class Pengu {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
+            Parser parser = new Parser(input);
+            String command = parser.getCommand();
+
             try {
-                if (input.equals("bye")) {
-                    exit();
-                    break;
-                } else if (input.equals("list")) {
-                    printTaskList();
-                } else if (input.startsWith("mark")) {
-                    processMark(input);
-                } else if (input.startsWith("unmark")) {
-                    processUnmark(input);
-                } else if (input.startsWith("todo")) {
-                    processTodo(input);
-                } else if (input.startsWith("deadline")) {
-                    processDeadline(input);
-                } else if (input.startsWith("event")) {
-                    processEvent(input);
-                } else if (input.startsWith("delete")) {
-                    processDelete(input);
-                } else {
-                    throw new InvalidCommandException();
+                switch (command) {
+                    case "bye" -> {
+                        exit();
+                        return;
+                    }
+                    case "list" -> printTaskList();
+                    case "mark" -> processMark(parser);
+                    case "unmark" -> processUnmark(parser);
+                    case "todo" -> processTodo(parser);
+                    case "deadline" -> processDeadline(parser);
+                    case "event" -> processEvent(parser);
+                    case "delete" -> processDelete(parser);
+                    default -> throw new InvalidCommandException();
                 }
             } catch (PenguException e) {
                 printMessage(e.getMessage());
@@ -64,137 +61,81 @@ public class Pengu {
         printMessage(taskListString.toString());
     }
 
-    private void processMark(String input) throws PenguException {
+    private void processMark(Parser parser) throws PenguException {
         final String markFormat = "mark <index>";
 
-        String[] inputSplit = input.split(" ", 2);
-        if (inputSplit.length < 2 || inputSplit[1].isEmpty()) {
-            throw new MissingFieldException(markFormat);
-        }
+        int taskIndex = parser.getIntField("", markFormat);
+        checkTaskIndexBounds(taskIndex);
 
-        String taskIndexString = inputSplit[1];
-
-        int taskIndex = parseTaskIndex(taskIndexString) - 1;
+        taskIndex--;
         taskList.get(taskIndex).markAsDone();
 
         String message = "Nice! I've marked this task as done:\n  " + taskList.get(taskIndex);
         printMessage(message);
     }
 
-    private void processUnmark(String input) throws PenguException {
+    private void processUnmark(Parser parser) throws PenguException {
         final String unmarkFormat = "unmark <index>";
 
-        String[] inputSplit = input.split(" ", 2);
-        if (inputSplit.length < 2 || inputSplit[1].isEmpty()) {
-            throw new MissingFieldException(unmarkFormat);
-        }
+        int taskIndex = parser.getIntField("", unmarkFormat);
+        checkTaskIndexBounds(taskIndex);
 
-        String taskIndexString = inputSplit[1];
-
-        int taskIndex = parseTaskIndex(taskIndexString) - 1;
+        taskIndex--;
         taskList.get(taskIndex).markAsUndone();
 
         String message = "OK, I've marked this task as not done yet:\n  " + taskList.get(taskIndex);
         printMessage(message);
     }
 
-    private void processDelete(String input) throws PenguException {
+    private void processDelete(Parser parser) throws PenguException {
         final String deleteFormat = "delete <index>";
 
-        String[] inputSplit = input.split(" ", 2);
-        if (inputSplit.length < 2 || inputSplit[1].isEmpty()) {
-            throw new MissingFieldException(deleteFormat);
-        }
+        int taskIndex = parser.getIntField("", deleteFormat);
+        checkTaskIndexBounds(taskIndex);
 
-        String taskIndexString = inputSplit[1];
-
-        int taskIndex = parseTaskIndex(taskIndexString) - 1;
-
+        taskIndex--;
         printDeleteTaskMessage(taskList.get(taskIndex));
         taskList.remove(taskIndex);
     }
     
-    private void processTodo(String input) throws PenguException {
+    private void processTodo(Parser parser) throws PenguException {
         final String todoFormat = "todo <description>";
 
-        String[] inputSplit = input.split(" ", 2);
-        if (inputSplit.length < 2 || inputSplit[1].isEmpty()) {
-            throw new MissingFieldException(todoFormat);
-        }
-
-        String taskDesc = inputSplit[1];
+        String taskDesc = parser.getField("", todoFormat);
 
         Todo todo = new Todo(taskDesc);
         taskList.add(todo);
         printAddTaskMessage(todo);
     }
 
-    private void processDeadline(String input) throws PenguException {
+    private void processDeadline(Parser parser) throws PenguException {
         final String deadlineFormat = "deadline <description> /by <by>";
 
-        String[] inputSplit = input.split(" ", 2);
-        if (inputSplit.length < 2 || inputSplit[1].isEmpty()) {
-            throw new MissingFieldException(deadlineFormat);
-        }
-
-        String deadlineDesc = inputSplit[1];
-        String[] deadlineFields = deadlineDesc.split(" /by ", 2);
-
-        if (deadlineFields.length < 2 || deadlineFields[1].isEmpty()) {
-            throw new MissingFieldException(deadlineFormat);
-        }
-
-        String description = deadlineFields[0];
-        String by = deadlineFields[1];
+        String description = parser.getField(" /by ", deadlineFormat);
+        String by = parser.getField("", deadlineFormat);
 
         Deadline deadline = new Deadline(description, by);
         taskList.add(deadline);
         printAddTaskMessage(deadline);
     }
 
-    private void processEvent(String input) throws PenguException {
+    private void processEvent(Parser parser) throws PenguException {
         final String eventFormat = "event <description> /from <from> /to <to>";
 
-        String[] inputSplit = input.split(" ", 2);
-        if (inputSplit.length < 2 || inputSplit[1].isEmpty()) {
-            throw new MissingFieldException(eventFormat);
-        }
-
-        String eventDesc = inputSplit[1];
-        String[] eventSplitByFrom = eventDesc.split(" /from ", 2);
-
-        if (eventSplitByFrom.length < 2 || eventSplitByFrom[1].isEmpty()) {
-            throw new MissingFieldException(eventFormat);
-        }
-
-        String description = eventSplitByFrom[0];
-        String[] eventFromTo = eventSplitByFrom[1].split(" /to ", 2);
-
-        if (eventFromTo.length < 2 || eventFromTo[1].isEmpty()) {
-            throw new MissingFieldException(eventFormat);
-        }
-
-        String from = eventFromTo[0];
-        String to = eventFromTo[1];
+        String description = parser.getField(" /from ", eventFormat);
+        String from = parser.getField(" /to ", eventFormat);
+        String to = parser.getField("", eventFormat);
 
         Event event = new Event(description, from, to);
         taskList.add(event);
         printAddTaskMessage(event);
     }
 
-    private int parseTaskIndex(String taskIndexString) throws PenguException {
-        try {
-            int taskIndex = Integer.parseInt(taskIndexString);
-            if (taskIndex <= 0 || taskIndex > taskList.size()) {
-                throw new InvalidFieldException(
-                        String.format("Expected: integer value in range [1, %d]\n", taskList.size())
-                        + "Given: " + taskIndex);
-            }
-
-            return taskIndex;
-        } catch (NumberFormatException e) {
-            throw new InvalidFieldException("Expected: integer value for task index\n"
-                    + "Given: " + taskIndexString);
+    private void checkTaskIndexBounds(int index) throws PenguException {
+        if (index <= 0 || index > taskList.size()) {
+            throw new InvalidFieldException(
+                    String.format("Expected: integer value in range [1, %d]\n", taskList.size())
+                    + "Given: " + index);
         }
     }
 
