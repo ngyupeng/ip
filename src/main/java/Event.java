@@ -1,10 +1,12 @@
+import java.time.LocalDateTime;
+
 /**
  * Class that specifies a task which is an Event
  * Start and end of event are stored in the class
  */
 public class Event extends Task {
-    private final String from;
-    private final String to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * Constructor for a Deadline instance
@@ -12,7 +14,7 @@ public class Event extends Task {
      * @param from Start of event
      * @param to End of event
      */
-    public Event(String description, boolean isDone, String from, String to) {
+    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -32,8 +34,8 @@ public class Event extends Task {
 
         boolean isDone = Task.fromIsDoneStr(fields[1]);
         String description = fields[2];
-        String from = fields[3];
-        String to = fields[4];
+        LocalDateTime from = Task.fromSaveFileDateTime(fields[3]);
+        LocalDateTime to = Task.fromSaveFileDateTime(fields[4]);
 
         return new Event(description, isDone, from, to);
     }
@@ -43,11 +45,15 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), from, to);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                DateTimeParser.toOutputFormatString(from),
+                DateTimeParser.toOutputFormatString(to));
     }
 
     @Override
     public String toSaveFileFormat() {
-        return String.format("E | %s | %s | %s", super.toSaveFileFormat(), from, to);
+        return String.format("E | %s | %s | %s", super.toSaveFileFormat(),
+                DateTimeParser.toInputFormatString(from),
+                DateTimeParser.toInputFormatString(to));
     }
 }

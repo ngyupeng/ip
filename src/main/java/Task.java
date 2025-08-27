@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -41,6 +43,13 @@ public class Task {
         return isDone ? "1" : "0";
     }
 
+    /**
+     * Checks that the isDone field is represented with "0" or "1" in the save file.
+     * Returns the corresponding boolean value if valid.
+     * @param str String representation of isDone field.
+     * @return Boolean for isDone.
+     * @throws SaveFileException If the isDone field isn't represented as "0" or "1".
+     */
     public static boolean fromIsDoneStr(String str) throws SaveFileException {
         switch (str) {
             case "1" -> {
@@ -51,6 +60,23 @@ public class Task {
             }
             default -> throw new SaveFileException("Expected: 0 or 1 for is done representation in save file\n"
                                + "Got: " + str);
+        }
+    }
+
+    /**
+     * Converts from string in format "yyyy-MM-dd HH:mm" to LocalDateTime object.
+     * @param str The date time string.
+     * @return Converted LocalDateTime object.
+     * @throws SaveFileException If string is not in required format.
+     */
+    public static LocalDateTime fromSaveFileDateTime(String str) throws SaveFileException {
+        try {
+            return DateTimeParser.fromDateTimeString(str);
+        } catch (PenguException e) {
+            String errorMessage = String.format(
+                    "Expected: date time string in format %s in save file\n", DateTimeParser.inputDateTimeFormat)
+                    + "Got: " + str;
+            throw new SaveFileException(errorMessage);
         }
     }
 

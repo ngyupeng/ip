@@ -1,15 +1,17 @@
+import java.time.LocalDateTime;
+
 /**
  * Class that specifies a task which is a Deadline
  */
 public class Deadline extends Task {
-    private final String by;
+    private final LocalDateTime by;
 
     /**
      * Constructor for a Deadline instance
      * @param description Description of task
      * @param by When the deadline is due
      */
-    public Deadline(String description, boolean isDone, String by) {
+    public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
     }
@@ -28,7 +30,7 @@ public class Deadline extends Task {
 
         boolean isDone = Task.fromIsDoneStr(fields[1]);
         String description = fields[2];
-        String by = fields[3];
+        LocalDateTime by = Task.fromSaveFileDateTime(fields[3]);
 
         return new Deadline(description, isDone, by);
     }
@@ -38,11 +40,12 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), by);
+        return String.format("[D]%s (by: %s)", super.toString(), DateTimeParser.toOutputFormatString(by));
     }
 
     @Override
     public String toSaveFileFormat() {
-        return String.format("D | %s | %s", super.toSaveFileFormat(), by);
+        return String.format("D | %s | %s", super.toSaveFileFormat(),
+                DateTimeParser.toInputFormatString(by));
     }
 }
