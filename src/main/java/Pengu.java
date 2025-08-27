@@ -2,35 +2,43 @@ import java.util.Scanner;
 
 public class Pengu {
     private static final String NAME = "Pengu";
-    private final TaskList taskList = new TaskList();
+    private TaskList taskList;
 
     public void run() {
         greet();
 
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String input = scanner.nextLine();
-            Parser parser = new Parser(input);
-            String command = parser.getCommand();
+        try {
+            Save save = new Save();
+            taskList = save.load();
 
-            try {
-                switch (command) {
-                    case "bye" -> {
-                        exit();
-                        return;
+            Scanner scanner = new Scanner(System.in);
+            while (true) {
+                String input = scanner.nextLine();
+                Parser parser = new Parser(input);
+                String command = parser.getCommand();
+
+                try {
+                    switch (command) {
+                        case "bye" -> {
+                            exit();
+                            save.save(taskList);
+                            return;
+                        }
+                        case "list" -> printTaskList();
+                        case "mark" -> processMark(parser);
+                        case "unmark" -> processUnmark(parser);
+                        case "todo" -> processTodo(parser);
+                        case "deadline" -> processDeadline(parser);
+                        case "event" -> processEvent(parser);
+                        case "delete" -> processDelete(parser);
+                        default -> throw new InvalidCommandException();
                     }
-                    case "list" -> printTaskList();
-                    case "mark" -> processMark(parser);
-                    case "unmark" -> processUnmark(parser);
-                    case "todo" -> processTodo(parser);
-                    case "deadline" -> processDeadline(parser);
-                    case "event" -> processEvent(parser);
-                    case "delete" -> processDelete(parser);
-                    default -> throw new InvalidCommandException();
+                } catch (PenguException e) {
+                    printMessage(e.getMessage());
                 }
-            } catch (PenguException e) {
-                printMessage(e.getMessage());
             }
+        } catch (PenguException e) {
+            printMessage(e.getMessage());
         }
     }
 
@@ -81,7 +89,7 @@ public class Pengu {
 
         String taskDesc = parser.getField("", todoFormat);
 
-        Todo todo = new Todo(taskDesc);
+        Todo todo = new Todo(taskDesc, false);
         taskList.add(todo);
         printAddTaskMessage(todo);
     }
@@ -92,7 +100,7 @@ public class Pengu {
         String description = parser.getField(" /by ", deadlineFormat);
         String by = parser.getField("", deadlineFormat);
 
-        Deadline deadline = new Deadline(description, by);
+        Deadline deadline = new Deadline(description, false, by);
         taskList.add(deadline);
         printAddTaskMessage(deadline);
     }
@@ -104,7 +112,7 @@ public class Pengu {
         String from = parser.getField(" /to ", eventFormat);
         String to = parser.getField("", eventFormat);
 
-        Event event = new Event(description, from, to);
+        Event event = new Event(description, false, from, to);
         taskList.add(event);
         printAddTaskMessage(event);
     }
