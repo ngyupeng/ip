@@ -9,18 +9,18 @@
     ____________________________________________________________
     ____________________________________________________________
     Got it, I've added this task:
-      [D][ ] Go to lecture (by: 12pm)
+      [D][ ] Go to lecture (by: Jul 21 2022 00:00)
     Now you have 2 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     Got it, I've added this task:
-      [E][ ] Eat lunch (from: 1pm to: 2pm)
+      [E][ ] Eat lunch (from: Jul 21 2022 12:00 to: Jul 22 2022 01:00)
     Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     1. [T][ ] Wake up
-    2. [D][ ] Go to lecture (by: 12pm)
-    3. [E][ ] Eat lunch (from: 1pm to: 2pm)
+    2. [D][ ] Go to lecture (by: Jul 21 2022 00:00)
+    3. [E][ ] Eat lunch (from: Jul 21 2022 12:00 to: Jul 22 2022 01:00)
     ____________________________________________________________
     ____________________________________________________________
     Nice! I've marked this task as done:
@@ -28,12 +28,12 @@
     ____________________________________________________________
     ____________________________________________________________
     Nice! I've marked this task as done:
-      [E][X] Eat lunch (from: 1pm to: 2pm)
+      [E][X] Eat lunch (from: Jul 21 2022 12:00 to: Jul 22 2022 01:00)
     ____________________________________________________________
     ____________________________________________________________
     1. [T][X] Wake up
-    2. [D][ ] Go to lecture (by: 12pm)
-    3. [E][X] Eat lunch (from: 1pm to: 2pm)
+    2. [D][ ] Go to lecture (by: Jul 21 2022 00:00)
+    3. [E][X] Eat lunch (from: Jul 21 2022 12:00 to: Jul 22 2022 01:00)
     ____________________________________________________________
     ____________________________________________________________
     OK, I've marked this task as not done yet:
@@ -41,12 +41,12 @@
     ____________________________________________________________
     ____________________________________________________________
     1. [T][ ] Wake up
-    2. [D][ ] Go to lecture (by: 12pm)
-    3. [E][X] Eat lunch (from: 1pm to: 2pm)
+    2. [D][ ] Go to lecture (by: Jul 21 2022 00:00)
+    3. [E][X] Eat lunch (from: Jul 21 2022 12:00 to: Jul 22 2022 01:00)
     ____________________________________________________________
     ____________________________________________________________
     Got it, I've added this task:
-      [E][ ] Jump_Around_Like_This (from: blablabla to: dadada)
+      [E][ ] Jump_Around_Like_This (from: Jun 30 2025 11:00 to: Jun 30 2025 13:00)
     Now you have 4 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
@@ -114,13 +114,13 @@
     ____________________________________________________________
     ____________________________________________________________
     Noted. I've removed this task:
-      [D][ ] Go to lecture (by: 12pm)
+      [D][ ] Go to lecture (by: Jul 21 2022 00:00)
     Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     1. [T][ ] Wake up
-    2. [E][X] Eat lunch (from: 1pm to: 2pm)
-    3. [E][ ] Jump_Around_Like_This (from: blablabla to: dadada)
+    2. [E][X] Eat lunch (from: Jul 21 2022 12:00 to: Jul 22 2022 01:00)
+    3. [E][ ] Jump_Around_Like_This (from: Jun 30 2025 11:00 to: Jun 30 2025 13:00)
     ____________________________________________________________
     ____________________________________________________________
     Oh no! Your command is missing a field!
@@ -136,6 +136,21 @@
     Oh no! Your command is missing a field!
     Please output the command in the following format:
     delete <index>
+    ____________________________________________________________
+    ____________________________________________________________
+    Oh no! Your field(s) provided caused the following error:
+    Expected: date time string in format yyyy-MM-dd HH:mm (e.g. 2025-07-23 14:30)
+    Got: 2025-06-30
+    ____________________________________________________________
+    ____________________________________________________________
+    Oh no! Your field(s) provided caused the following error:
+    Expected: date time string in format yyyy-MM-dd HH:mm (e.g. 2025-07-23 14:30)
+    Got: 2025-06-30
+    ____________________________________________________________
+    ____________________________________________________________
+    Oh no! Your field(s) provided caused the following error:
+    Expected: date time string in format yyyy-MM-dd HH:mm (e.g. 2025-07-23 14:30)
+    Got: 2025-06-30
     ____________________________________________________________
     ____________________________________________________________
     Bye. Hope to see you again soon!

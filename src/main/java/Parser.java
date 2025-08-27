@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 /**
  * Parser class to retrieve fields from user input
  */
@@ -71,5 +73,21 @@ public class Parser {
             throw new InvalidFieldException("Expected: integer value field\n"
                     + "Given: " + field);
         }
+    }
+
+    /**
+     * Returns datetime field parsed up to a delimiter string.
+     * Throws exception if delimiter not found, or if field isn't in the correct date time format.
+     *
+     * @param delim Delimiter string.
+     * @param commandFormat Format of command to be parsed, used as error message.
+     * @return The parsed field as a LocalDateTime object.
+     * @throws MissingFieldException If delimiter not found or field is empty.
+     * @throws InvalidFieldException If field is not in correct date time format.
+     */
+    public LocalDateTime getDateTimeField(String delim, String commandFormat) throws PenguException {
+        String field = getField(delim, commandFormat);
+
+        return DateTimeParser.fromDateTimeString(field);
     }
 }

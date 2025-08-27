@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class Pengu {
     private static final String NAME = "Pengu";
@@ -98,7 +99,9 @@ public class Pengu {
         final String deadlineFormat = "deadline <description> /by <by>";
 
         String description = parser.getField(" /by ", deadlineFormat);
-        String by = parser.getField("", deadlineFormat);
+        String byString = parser.getField("", deadlineFormat);
+
+        LocalDateTime by = DateTimeParser.fromDateTimeString(byString);
 
         Deadline deadline = new Deadline(description, false, by);
         taskList.add(deadline);
@@ -109,8 +112,8 @@ public class Pengu {
         final String eventFormat = "event <description> /from <from> /to <to>";
 
         String description = parser.getField(" /from ", eventFormat);
-        String from = parser.getField(" /to ", eventFormat);
-        String to = parser.getField("", eventFormat);
+        LocalDateTime from = parser.getDateTimeField(" /to ", eventFormat);
+        LocalDateTime to = parser.getDateTimeField("", eventFormat);
 
         Event event = new Event(description, false, from, to);
         taskList.add(event);
