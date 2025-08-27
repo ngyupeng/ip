@@ -89,4 +89,19 @@ public class TaskList {
 
         return taskListString.toString();
     }
+
+    /**
+     * Returns the task list in the save file format.
+     * @return Task list in save file format string.
+     */
+    public String toSaveFileFormat() {
+        StringBuilder saveFileString = new StringBuilder();
+
+        for (Task task : taskList) {
+            saveFileString.append(task.toSaveFileFormat());
+            saveFileString.append("\n");
+        }
+
+        return saveFileString.toString();
+    }
 }

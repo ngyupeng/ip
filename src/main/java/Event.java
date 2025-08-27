@@ -12,10 +12,30 @@ public class Event extends Task {
      * @param from Start of event
      * @param to End of event
      */
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, boolean isDone, String from, String to) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
+    }
+
+    /**
+     * Returns a Event object as represented in the line in the save file.
+     * @param line The line in the save file.
+     * @return A event represented by the line.
+     * @throws SaveFileException If the line is not a valid Event representation.
+     */
+    public static Event fromSaveFileFormat(String line) throws SaveFileException {
+        String[] fields = line.split(" \\| ");
+        if (fields.length != 5) {
+            throw new SaveFileException("Unknown task format found in save file:\n" + line);
+        }
+
+        boolean isDone = Task.fromIsDoneStr(fields[1]);
+        String description = fields[2];
+        String from = fields[3];
+        String to = fields[4];
+
+        return new Event(description, isDone, from, to);
     }
 
     /**
@@ -24,5 +44,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), from, to);
+    }
+
+    @Override
+    public String toSaveFileFormat() {
+        return String.format("E | %s | %s | %s", super.toSaveFileFormat(), from, to);
     }
 }
