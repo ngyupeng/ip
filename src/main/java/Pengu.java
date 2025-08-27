@@ -1,9 +1,8 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Pengu {
     private static final String NAME = "Pengu";
-    private final ArrayList<Task> taskList = new ArrayList<>();
+    private final TaskList taskList = new TaskList();
 
     public void run() {
         greet();
@@ -46,29 +45,14 @@ public class Pengu {
     }
 
     private void printTaskList() {
-        StringBuilder taskListString = new StringBuilder();
-
-        for (int i = 0; i < taskList.size(); i++) {
-            // Every line except the last should end with newline
-            if (i > 0) {
-                taskListString.append("\n");
-            }
-
-            String taskString = (i + 1) + ". " + taskList.get(i);
-            taskListString.append(taskString);
-        }
-
-        printMessage(taskListString.toString());
+        printMessage(taskList.toString());
     }
 
     private void processMark(Parser parser) throws PenguException {
         final String markFormat = "mark <index>";
 
         int taskIndex = parser.getIntField("", markFormat);
-        checkTaskIndexBounds(taskIndex);
-
-        taskIndex--;
-        taskList.get(taskIndex).markAsDone();
+        taskList.markAsDone(taskIndex);
 
         String message = "Nice! I've marked this task as done:\n  " + taskList.get(taskIndex);
         printMessage(message);
@@ -78,10 +62,7 @@ public class Pengu {
         final String unmarkFormat = "unmark <index>";
 
         int taskIndex = parser.getIntField("", unmarkFormat);
-        checkTaskIndexBounds(taskIndex);
-
-        taskIndex--;
-        taskList.get(taskIndex).markAsUndone();
+        taskList.markAsUndone(taskIndex);
 
         String message = "OK, I've marked this task as not done yet:\n  " + taskList.get(taskIndex);
         printMessage(message);
@@ -89,11 +70,8 @@ public class Pengu {
 
     private void processDelete(Parser parser) throws PenguException {
         final String deleteFormat = "delete <index>";
-
         int taskIndex = parser.getIntField("", deleteFormat);
-        checkTaskIndexBounds(taskIndex);
 
-        taskIndex--;
         printDeleteTaskMessage(taskList.get(taskIndex));
         taskList.remove(taskIndex);
     }
@@ -129,14 +107,6 @@ public class Pengu {
         Event event = new Event(description, from, to);
         taskList.add(event);
         printAddTaskMessage(event);
-    }
-
-    private void checkTaskIndexBounds(int index) throws PenguException {
-        if (index <= 0 || index > taskList.size()) {
-            throw new InvalidFieldException(
-                    String.format("Expected: integer value in range [1, %d]\n", taskList.size())
-                    + "Given: " + index);
-        }
     }
 
     private void printAddTaskMessage(Task task) {
