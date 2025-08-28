@@ -42,7 +42,7 @@ public class Ui {
      */
     public void printAddTaskMessage(Task task, TaskList taskList) {
         String message = "Got it, I've added this task:\n  " + task + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list.";
+                + "Now you have " + taskList.getSize() + " tasks in the list.";
         printMessage(message);
     }
 
@@ -54,7 +54,7 @@ public class Ui {
      */
     public void printDeleteTaskMessage(Task task, TaskList taskList) {
         String message = "Noted. I've removed this task:\n  " + task + "\n"
-                + "Now you have " + (taskList.size() - 1) + " tasks in the list.";
+                + "Now you have " + (taskList.getSize() - 1) + " tasks in the list.";
         printMessage(message);
     }
 

@@ -85,7 +85,7 @@ public class Task {
      *
      * @return 1 if done, 0 if undone.
      */
-    public String isDoneString() {
+    public String getIsDoneString() {
         return isDone ? "1" : "0";
     }
 
@@ -103,6 +103,6 @@ public class Task {
      * @return String in save file format.
      */
     public String toSaveFileFormat() {
-        return String.format("%s | %s", isDoneString(), description);
+        return String.format("%s | %s", getIsDoneString(), description);
     }
 }

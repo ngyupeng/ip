@@ -26,7 +26,7 @@ public class TaskListTest {
         assertEquals(todo1, taskList.get(1));
         assertEquals(todo2, taskList.get(2));
         assertEquals(todo3, taskList.get(3));
-        assertEquals(3, taskList.size());
+        assertEquals(3, taskList.getSize());
     }
 
     @Test
@@ -44,11 +44,11 @@ public class TaskListTest {
         taskList.remove(2);
         assertEquals(todo1, taskList.get(1));
         assertEquals(todo3, taskList.get(2));
-        assertEquals(2, taskList.size());
+        assertEquals(2, taskList.getSize());
 
         taskList.remove(1);
         assertEquals(todo3, taskList.get(1));
-        assertEquals(1, taskList.size());
+        assertEquals(1, taskList.getSize());
     }
 
     @Test
