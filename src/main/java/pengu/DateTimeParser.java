@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import pengu.exception.InvalidFieldException;
-import pengu.exception.PenguException;
 
 /**
  * Class to help with parsing date time strings and re-outputting in various formats.
@@ -22,9 +21,9 @@ public class DateTimeParser {
      * Convert string to LocalDateTime object.
      * @param str String in "yyyy-mm-dd HH:mm" format;
      * @return LocalDateTime object corresponding to string.
-     * @throws PenguException If string isn't in correct format.
+     * @throws InvalidFieldException If string isn't in correct format.
      */
-    public static LocalDateTime fromDateTimeString(String str) throws PenguException {
+    public static LocalDateTime fromDateTimeString(String str) throws InvalidFieldException {
         try {
             return LocalDateTime.parse(str, inputDateTimeFormatter);
         } catch (DateTimeParseException e) {
