@@ -53,7 +53,7 @@ public class Task {
             return DateTimeParser.fromDateTimeString(str);
         } catch (PenguException e) {
             String errorMessage = String.format(
-                    "Expected: date time string in format %s in save file\n", DateTimeParser.inputDateTimeFormat)
+                    "Expected: date time string in format %s in save file\n", DateTimeParser.INPUT_DATE_TIME_FORMAT)
                     + "Got: " + str;
             throw new SaveFileException(errorMessage);
         }

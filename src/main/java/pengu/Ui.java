@@ -88,20 +88,20 @@ public class Ui {
     }
 
     private void printMessage(String message) {
-        final String PADDING = " ".repeat(4);
+        final String padding = " ".repeat(4);
         printLine();
 
         String[] lines = message.split("\n");
         for (String line : lines) {
-            System.out.println(PADDING + line);
+            System.out.println(padding + line);
         }
 
         printLine();
     }
 
     private void printLine() {
-        final String LINE = "_".repeat(60);
-        final String PADDING = " ".repeat(4);
-        System.out.println(PADDING + LINE);
+        final String line = "_".repeat(60);
+        final String padding = " ".repeat(4);
+        System.out.println(padding + line);
     }
 }
