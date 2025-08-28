@@ -73,6 +73,23 @@ public class TaskList {
     }
 
     /**
+     * Returns a list of tasks whose description contains the string to find.
+     * @param toFind The string to find.
+     * @return List of tasks whose description contains toFind.
+     */
+    public TaskList find(String toFind) {
+        TaskList foundTasks = new TaskList();
+
+        for (Task task : taskList) {
+            if (task.getDescription().contains(toFind)) {
+                foundTasks.add(task);
+            }
+        }
+
+        return foundTasks;
+    }
+
+    /**
      * Returns a string representation of the pengu.task.TaskList object.
      * Each task in the task list is printed in its own line.
      * @return String representation of the task list.

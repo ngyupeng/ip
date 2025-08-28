@@ -42,6 +42,7 @@ public class Pengu {
                         case "deadline" -> processDeadline(parser);
                         case "event" -> processEvent(parser);
                         case "delete" -> processDelete(parser);
+                        case "find" -> processFind(parser);
                         default -> throw new InvalidCommandException();
                     }
                 } catch (PenguException e) {
@@ -77,6 +78,14 @@ public class Pengu {
 
         ui.printDeleteTaskMessage(taskList.get(taskIndex), taskList);
         taskList.remove(taskIndex);
+    }
+
+    private void processFind(Parser parser) throws PenguException {
+        final String findFormat = "find <string_to_find>";
+        String toFind = parser.getField("", findFormat);
+
+        TaskList foundTasks = taskList.find(toFind);
+        ui.printFoundTasks(foundTasks);
     }
     
     private void processTodo(Parser parser) throws PenguException {
