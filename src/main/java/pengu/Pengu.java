@@ -1,5 +1,14 @@
+package pengu;
+
 import java.util.Scanner;
 import java.time.LocalDateTime;
+
+import pengu.exception.InvalidCommandException;
+import pengu.exception.PenguException;
+import pengu.task.Deadline;
+import pengu.task.Event;
+import pengu.task.TaskList;
+import pengu.task.Todo;
 
 public class Pengu {
     private TaskList taskList;

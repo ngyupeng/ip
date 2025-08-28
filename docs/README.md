@@ -1,4 +1,4 @@
-# Pengu User Guide
+# pengu.Pengu User Guide
 
 // Update the title above to match the actual product name
 

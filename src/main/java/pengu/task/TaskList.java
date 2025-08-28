@@ -1,3 +1,7 @@
+package pengu.task;
+
+import pengu.exception.InvalidFieldException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -5,7 +9,7 @@ public class TaskList {
 
     /**
      * Adds a new task to the task list.
-     * @param task Task to be added.
+     * @param task pengu.task.Task to be added.
      */
     public void add(Task task) {
         taskList.add(task);
@@ -14,7 +18,7 @@ public class TaskList {
     /**
      * Get task at index, 1-indexed.
      * @param index 1-indexed task index.
-     * @return Task at the index.
+     * @return pengu.task.Task at the index.
      * @throws InvalidFieldException If index is out of bounds.
      */
     public Task get(int index) throws InvalidFieldException {
@@ -69,7 +73,7 @@ public class TaskList {
     }
 
     /**
-     * Returns a string representation of the TaskList object.
+     * Returns a string representation of the pengu.task.TaskList object.
      * Each task in the task list is printed in its own line.
      * @return String representation of the task list.
      */
@@ -92,7 +96,7 @@ public class TaskList {
 
     /**
      * Returns the task list in the save file format.
-     * @return Task list in save file format string.
+     * @return pengu.task.Task list in save file format string.
      */
     public String toSaveFileFormat() {
         StringBuilder saveFileString = new StringBuilder();

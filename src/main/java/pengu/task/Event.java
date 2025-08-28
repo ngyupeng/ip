@@ -1,7 +1,12 @@
+package pengu.task;
+
+import pengu.DateTimeParser;
+import pengu.exception.SaveFileException;
+
 import java.time.LocalDateTime;
 
 /**
- * Class that specifies a task which is an Event
+ * Class that specifies a task which is an pengu.task.Event
  * Start and end of event are stored in the class
  */
 public class Event extends Task {
@@ -9,7 +14,7 @@ public class Event extends Task {
     private final LocalDateTime to;
 
     /**
-     * Constructor for a Deadline instance
+     * Constructor for a pengu.task.Deadline instance
      * @param description Description of task
      * @param from Start of event
      * @param to End of event
@@ -21,10 +26,10 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a Event object as represented in the line in the save file.
+     * Returns a pengu.task.Event object as represented in the line in the save file.
      * @param line The line in the save file.
      * @return A event represented by the line.
-     * @throws SaveFileException If the line is not a valid Event representation.
+     * @throws SaveFileException If the line is not a valid pengu.task.Event representation.
      */
     public static Event fromSaveFileFormat(String line) throws SaveFileException {
         String[] fields = line.split(" \\| ");
