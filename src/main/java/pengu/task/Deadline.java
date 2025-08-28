@@ -1,9 +1,9 @@
 package pengu.task;
 
+import java.time.LocalDateTime;
+
 import pengu.DateTimeParser;
 import pengu.exception.SaveFileException;
-
-import java.time.LocalDateTime;
 
 /**
  * Class that specifies a task which is a pengu.task.Deadline
@@ -13,8 +13,9 @@ public class Deadline extends Task {
 
     /**
      * Constructor for a pengu.task.Deadline instance
+     *
      * @param description Description of task
-     * @param by When the deadline is due
+     * @param by          When the deadline is due
      */
     public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
@@ -23,6 +24,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a pengu.task.Deadline object as represented in the line in the save file.
+     *
      * @param line The line in the save file.
      * @return A deadline represented by the line.
      * @throws SaveFileException If the line is not a valid pengu.task.Deadline representation.

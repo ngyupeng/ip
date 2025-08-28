@@ -19,6 +19,7 @@ public class DateTimeParser {
 
     /**
      * Convert string to LocalDateTime object.
+     *
      * @param str String in "yyyy-mm-dd HH:mm" format;
      * @return LocalDateTime object corresponding to string.
      * @throws InvalidFieldException If string isn't in correct format.
@@ -37,6 +38,7 @@ public class DateTimeParser {
     /**
      * Convert LocalDateTime object to string in "MMM dd yyyy HH:mm" format
      * (e.g. Oct 15 2025 12:30)
+     *
      * @param dateTime LocalDateTime object
      * @return String in target format.
      */
@@ -47,6 +49,7 @@ public class DateTimeParser {
     /**
      * Convert LocalDateTime object to string in "yyyy-MM-dd HH:mm" format
      * (e.g. 2025-07-23 14:30)
+     *
      * @param dateTime LocalDateTime object
      * @return String in target format.
      */

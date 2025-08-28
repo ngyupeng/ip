@@ -1,7 +1,7 @@
 package pengu;
 
-import java.util.Scanner;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 import pengu.exception.InvalidCommandException;
 import pengu.exception.PenguException;
@@ -13,6 +13,11 @@ import pengu.task.Todo;
 public class Pengu {
     private TaskList taskList;
     private Ui ui;
+
+    public static void main(String[] args) {
+        Pengu pengu = new Pengu();
+        pengu.run();
+    }
 
     public void run() {
         ui = new Ui();
@@ -30,19 +35,19 @@ public class Pengu {
 
                 try {
                     switch (command) {
-                        case "bye" -> {
-                            ui.exit();
-                            save.save(taskList);
-                            return;
-                        }
-                        case "list" -> ui.printTaskList(taskList);
-                        case "mark" -> processMark(parser);
-                        case "unmark" -> processUnmark(parser);
-                        case "todo" -> processTodo(parser);
-                        case "deadline" -> processDeadline(parser);
-                        case "event" -> processEvent(parser);
-                        case "delete" -> processDelete(parser);
-                        default -> throw new InvalidCommandException();
+                    case "bye" -> {
+                        ui.exit();
+                        save.save(taskList);
+                        return;
+                    }
+                    case "list" -> ui.printTaskList(taskList);
+                    case "mark" -> processMark(parser);
+                    case "unmark" -> processUnmark(parser);
+                    case "todo" -> processTodo(parser);
+                    case "deadline" -> processDeadline(parser);
+                    case "event" -> processEvent(parser);
+                    case "delete" -> processDelete(parser);
+                    default -> throw new InvalidCommandException();
                     }
                 } catch (PenguException e) {
                     ui.printError(e.getMessage());
@@ -78,7 +83,7 @@ public class Pengu {
         ui.printDeleteTaskMessage(taskList.get(taskIndex), taskList);
         taskList.remove(taskIndex);
     }
-    
+
     private void processTodo(Parser parser) throws PenguException {
         final String todoFormat = "todo <description>";
 
@@ -112,10 +117,5 @@ public class Pengu {
         Event event = new Event(description, false, from, to);
         taskList.add(event);
         ui.printAddTaskMessage(event, taskList);
-    }
-
-    public static void main(String[] args) {
-        Pengu pengu = new Pengu();
-        pengu.run();
     }
 }

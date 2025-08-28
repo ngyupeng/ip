@@ -8,6 +8,7 @@ import pengu.exception.SaveFileException;
 public class Todo extends Task {
     /**
      * Constructor for a pengu.task.Todo instance
+     *
      * @param description Description of task
      */
     public Todo(String description, boolean isDone) {
@@ -16,6 +17,7 @@ public class Todo extends Task {
 
     /**
      * Returns a pengu.task.Todo object as represented in the line in the save file.
+     *
      * @param line The line in the save file.
      * @return A todo represented by the line.
      * @throws SaveFileException If the line is not valid pengu.task.Todo representation.

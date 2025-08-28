@@ -11,8 +11,8 @@ import pengu.exception.PenguException;
  */
 public class Parser {
     private final String input;
-    private int curIndex;
     private final String command;
+    private int curIndex;
 
     public Parser(String input) {
         this.input = input;
@@ -29,6 +29,7 @@ public class Parser {
 
     /**
      * Returns command parsed.
+     *
      * @return command
      */
     public String getCommand() {
@@ -39,7 +40,7 @@ public class Parser {
      * Returns field parsed up to a delimiter string.
      * Throws exception if delimiter not found.
      *
-     * @param delim Delimiter string.
+     * @param delim         Delimiter string.
      * @param commandFormat Format of command to be parsed, used as error message.
      * @return The parsed field.
      * @throws MissingFieldException If delimiter not found or field is empty.
@@ -64,7 +65,7 @@ public class Parser {
      * Returns integer field parsed up to a delimiter string.
      * Throws exception if delimiter not found, or if field isn't an integer.
      *
-     * @param delim Delimiter string.
+     * @param delim         Delimiter string.
      * @param commandFormat Format of command to be parsed, used as error message.
      * @return The parsed field.
      * @throws MissingFieldException If delimiter not found or field is empty.
@@ -85,7 +86,7 @@ public class Parser {
      * Returns datetime field parsed up to a delimiter string.
      * Throws exception if delimiter not found, or if field isn't in the correct date time format.
      *
-     * @param delim Delimiter string.
+     * @param delim         Delimiter string.
      * @param commandFormat Format of command to be parsed, used as error message.
      * @return The parsed field as a LocalDateTime object.
      * @throws MissingFieldException If delimiter not found or field is empty.

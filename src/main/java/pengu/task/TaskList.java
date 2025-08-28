@@ -1,14 +1,15 @@
 package pengu.task;
 
-import pengu.exception.InvalidFieldException;
-
 import java.util.ArrayList;
+
+import pengu.exception.InvalidFieldException;
 
 public class TaskList {
     private final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
      * Adds a new task to the task list.
+     *
      * @param task pengu.task.Task to be added.
      */
     public void add(Task task) {
@@ -17,6 +18,7 @@ public class TaskList {
 
     /**
      * Get task at index, 1-indexed.
+     *
      * @param index 1-indexed task index.
      * @return pengu.task.Task at the index.
      * @throws InvalidFieldException If index is out of bounds.
@@ -28,6 +30,7 @@ public class TaskList {
 
     /**
      * Returns size of task list.
+     *
      * @return Size of task list.
      */
     public int size() {
@@ -36,6 +39,7 @@ public class TaskList {
 
     /**
      * Mark task at index as done, 1-indexed.
+     *
      * @param index 1-indexed task index.
      * @throws InvalidFieldException If index is out of bounds.
      */
@@ -46,6 +50,7 @@ public class TaskList {
 
     /**
      * Mark task at index as undone, 1-indexed.
+     *
      * @param index 1-indexed task index.
      * @throws InvalidFieldException If index is out of bounds.
      */
@@ -56,6 +61,7 @@ public class TaskList {
 
     /**
      * Deletes task at index, 1-indexed.
+     *
      * @param index 1-indexed task index.
      * @throws InvalidFieldException If index is out of bounds.
      */
@@ -68,13 +74,14 @@ public class TaskList {
         if (index <= 0 || index > taskList.size()) {
             throw new InvalidFieldException(
                     String.format("Expected: integer value in range [1, %d]\n", taskList.size())
-                    + "Given: " + index);
+                            + "Given: " + index);
         }
     }
 
     /**
      * Returns a string representation of the pengu.task.TaskList object.
      * Each task in the task list is printed in its own line.
+     *
      * @return String representation of the task list.
      */
     @Override
@@ -96,6 +103,7 @@ public class TaskList {
 
     /**
      * Returns the task list in the save file format.
+     *
      * @return pengu.task.Task list in save file format string.
      */
     public String toSaveFileFormat() {
