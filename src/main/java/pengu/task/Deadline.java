@@ -1,9 +1,9 @@
 package pengu.task;
 
+import java.time.LocalDateTime;
+
 import pengu.DateTimeParser;
 import pengu.exception.SaveFileException;
-
-import java.time.LocalDateTime;
 
 /**
  * Class that specifies a task which has a deadline for completion.
@@ -14,7 +14,7 @@ public class Deadline extends Task {
     /**
      * Constructor for a Deadline instance
      * @param description Description of task
-     * @param by When the deadline is due
+     * @param by          When the deadline is due
      */
     public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);

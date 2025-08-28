@@ -40,7 +40,7 @@ public class Ui {
      */
     public void printAddTaskMessage(Task task, TaskList taskList) {
         String message = "Got it, I've added this task:\n  " + task + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list.";
+                + "Now you have " + taskList.getSize() + " tasks in the list.";
         printMessage(message);
     }
 
@@ -51,7 +51,7 @@ public class Ui {
      */
     public void printDeleteTaskMessage(Task task, TaskList taskList) {
         String message = "Noted. I've removed this task:\n  " + task + "\n"
-                + "Now you have " + (taskList.size() - 1) + " tasks in the list.";
+                + "Now you have " + (taskList.getSize() - 1) + " tasks in the list.";
         printMessage(message);
     }
 
@@ -75,6 +75,7 @@ public class Ui {
 
     /**
      * Prints out an error message, emphasising with "ERROR!!".
+     *
      * @param message Error message.
      */
     public void printError(String message) {
@@ -82,20 +83,20 @@ public class Ui {
     }
 
     private void printMessage(String message) {
-        final String PADDING = " ".repeat(4);
+        final String padding = " ".repeat(4);
         printLine();
 
         String[] lines = message.split("\n");
         for (String line : lines) {
-            System.out.println(PADDING + line);
+            System.out.println(padding + line);
         }
 
         printLine();
     }
 
     private void printLine() {
-        final String LINE = "_".repeat(60);
-        final String PADDING = " ".repeat(4);
-        System.out.println(PADDING + LINE);
+        final String line = "_".repeat(60);
+        final String padding = " ".repeat(4);
+        System.out.println(padding + line);
     }
 }

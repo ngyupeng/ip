@@ -1,9 +1,9 @@
 package pengu.task;
 
+import java.time.LocalDateTime;
+
 import pengu.DateTimeParser;
 import pengu.exception.SaveFileException;
-
-import java.time.LocalDateTime;
 
 /**
  * Class that specifies a task which is an Event.

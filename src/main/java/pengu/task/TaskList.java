@@ -1,8 +1,8 @@
 package pengu.task;
 
-import pengu.exception.InvalidFieldException;
-
 import java.util.ArrayList;
+
+import pengu.exception.InvalidFieldException;
 
 /**
  * Class that stores a list of tasks.
@@ -21,6 +21,7 @@ public class TaskList {
 
     /**
      * Get task at index, 1-indexed.
+     *
      * @param index 1-indexed task index.
      * @return Task at the index.
      * @throws InvalidFieldException If index is out of bounds.
@@ -32,14 +33,16 @@ public class TaskList {
 
     /**
      * Returns size of task list.
+     *
      * @return Size of task list.
      */
-    public int size() {
+    public int getSize() {
         return taskList.size();
     }
 
     /**
      * Mark task at index as done, 1-indexed.
+     *
      * @param index 1-indexed task index.
      * @throws InvalidFieldException If index is out of bounds.
      */
@@ -50,6 +53,7 @@ public class TaskList {
 
     /**
      * Mark task at index as undone, 1-indexed.
+     *
      * @param index 1-indexed task index.
      * @throws InvalidFieldException If index is out of bounds.
      */
@@ -60,6 +64,7 @@ public class TaskList {
 
     /**
      * Deletes task at index, 1-indexed.
+     *
      * @param index 1-indexed task index.
      * @throws InvalidFieldException If index is out of bounds.
      */
@@ -72,13 +77,14 @@ public class TaskList {
         if (index <= 0 || index > taskList.size()) {
             throw new InvalidFieldException(
                     String.format("Expected: integer value in range [1, %d]\n", taskList.size())
-                    + "Given: " + index);
+                            + "Given: " + index);
         }
     }
 
     /**
      * Returns a string representation of the TaskList object.
      * Each task in the task list is printed in its own line.
+     *
      * @return String representation of the task list.
      */
     @Override
