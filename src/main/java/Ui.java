@@ -1,0 +1,96 @@
+/**
+ * Class to handle printing responses to user input.
+ */
+public class Ui {
+    private static final String NAME = "Pengu";
+
+    /**
+     * Prints greeting message.
+     */
+    public void greet() {
+        String greetMessage = String.format("Hello! I'm %s\n" + "What can I do for you?", NAME);
+        printMessage(greetMessage);
+    }
+
+    /**
+     * Prints farewell message.
+     */
+    public void exit() {
+        String exitMessage = "Bye. Hope to see you again soon!";
+        printMessage(exitMessage);
+    }
+
+    /**
+     * Prints out the task list.
+     * @param taskList TaskList to print.
+     */
+    public void printTaskList(TaskList taskList) {
+        printMessage(taskList.toString());
+    }
+
+    /**
+     * Prints a message that says a task has been added, and how many tasks are in the list.
+     * @param task Task added.
+     * @param taskList TaskList the task is added to.
+     */
+    public void printAddTaskMessage(Task task, TaskList taskList) {
+        String message = "Got it, I've added this task:\n  " + task + "\n"
+                + "Now you have " + taskList.size() + " tasks in the list.";
+        printMessage(message);
+    }
+
+    /**
+     * Prints a message that says a task has been deleted, and how many tasks are left in the list.
+     * @param task Task deleted.
+     * @param taskList TaskList the task is deleted from.
+     */
+    public void printDeleteTaskMessage(Task task, TaskList taskList) {
+        String message = "Noted. I've removed this task:\n  " + task + "\n"
+                + "Now you have " + (taskList.size() - 1) + " tasks in the list.";
+        printMessage(message);
+    }
+
+    /**
+     * Prints a message that says a task has been marked as done.
+     * @param task Task marked as done.
+     */
+    public void printMarkTaskMessage(Task task) {
+        String message = "Nice! I've marked this task as done:\n  " + task;
+        printMessage(message);
+    }
+
+    /**
+     * Prints a message that says a task has been marked as undone.
+     * @param task Task marked as undone.
+     */
+    public void printUnmarkTaskMessage(Task task) {
+        String message = "OK, I've marked this task as not done yet:\n  " + task;
+        printMessage(message);
+    }
+
+    /**
+     * Prints out an error message, emphasising with "ERROR!!".
+     * @param message Error message.
+     */
+    public void printError(String message) {
+        printMessage("ERROR!!\n" + message);
+    }
+
+    private void printMessage(String message) {
+        final String PADDING = " ".repeat(4);
+        printLine();
+
+        String[] lines = message.split("\n");
+        for (String line : lines) {
+            System.out.println(PADDING + line);
+        }
+
+        printLine();
+    }
+
+    private void printLine() {
+        final String LINE = "_".repeat(60);
+        final String PADDING = " ".repeat(4);
+        System.out.println(PADDING + LINE);
+    }
+}
