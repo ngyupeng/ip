@@ -3,11 +3,11 @@ package pengu.task;
 import pengu.exception.SaveFileException;
 
 /**
- * Class that specifies a task which is a pengu.task.Todo
+ * Class that specifies a task which is a todo.
  */
 public class Todo extends Task {
     /**
-     * Constructor for a pengu.task.Todo instance
+     * Constructor for a Todo instance
      * @param description Description of task
      */
     public Todo(String description, boolean isDone) {
@@ -15,10 +15,10 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a pengu.task.Todo object as represented in the line in the save file.
+     * Returns a Todo object as represented in the line in the save file.
      * @param line The line in the save file.
      * @return A todo represented by the line.
-     * @throws SaveFileException If the line is not valid pengu.task.Todo representation.
+     * @throws SaveFileException If the line is not valid Todo representation.
      */
     public static Todo fromSaveFileFormat(String line) throws SaveFileException {
         String[] fields = line.split(" \\| ");
@@ -33,7 +33,7 @@ public class Todo extends Task {
     }
 
     /**
-     * @return String representation of the pengu.task.Todo task
+     * @return String representation of the Todo task.
      */
     @Override
     public String toString() {

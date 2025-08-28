@@ -6,13 +6,13 @@ import pengu.exception.SaveFileException;
 import java.time.LocalDateTime;
 
 /**
- * Class that specifies a task which is a pengu.task.Deadline
+ * Class that specifies a task which has a deadline for completion.
  */
 public class Deadline extends Task {
     private final LocalDateTime by;
 
     /**
-     * Constructor for a pengu.task.Deadline instance
+     * Constructor for a Deadline instance
      * @param description Description of task
      * @param by When the deadline is due
      */
@@ -22,10 +22,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a pengu.task.Deadline object as represented in the line in the save file.
+     * Returns a Deadline object as represented in the line in the save file.
      * @param line The line in the save file.
      * @return A deadline represented by the line.
-     * @throws SaveFileException If the line is not a valid pengu.task.Deadline representation.
+     * @throws SaveFileException If the line is not a valid Deadline representation.
      */
     public static Deadline fromSaveFileFormat(String line) throws SaveFileException {
         String[] fields = line.split(" \\| ");

@@ -30,8 +30,8 @@ public class Save {
     }
 
     /**
-     * pengu.Save the task list in human-readable format in the save file.
-     * @param taskList pengu.task.Task list to be saved.
+     * Save the task list in human-readable format in the save file.
+     * @param taskList Task list to be saved.
      */
     public void save(TaskList taskList) throws SaveFileException {
         try {
@@ -46,7 +46,7 @@ public class Save {
 
     /**
      * Returns the task list as saved in the save file.
-     * @return pengu.task.Task list loaded from the save file.
+     * @return Task list loaded from the save file.
      */
     public TaskList load() throws SaveFileException {
         try {
@@ -65,7 +65,7 @@ public class Save {
         }
     }
 
-    public void createDirectory() throws SaveFileException {
+    private void createDirectory() throws SaveFileException {
         Path path = Paths.get(SAVE_FILE_PATH).getParent();
 
         try {
@@ -75,7 +75,7 @@ public class Save {
         }
     }
 
-    public void createFile() throws SaveFileException {
+    private void createFile() throws SaveFileException {
         Path path = Paths.get(SAVE_FILE_PATH);
 
         try {
@@ -86,7 +86,7 @@ public class Save {
         }
     }
 
-    public Task taskFromSaveFileFormat(String line) throws SaveFileException {
+    private Task taskFromSaveFileFormat(String line) throws SaveFileException {
         if (line.startsWith("T |")) {
             return Todo.fromSaveFileFormat(line);
         } else if (line.startsWith("D |")) {
