@@ -1,3 +1,8 @@
+package pengu;
+
+import pengu.task.Task;
+import pengu.task.TaskList;
+
 /**
  * Class to handle printing responses to user input.
  */
@@ -22,7 +27,7 @@ public class Ui {
 
     /**
      * Prints out the task list.
-     * @param taskList TaskList to print.
+     * @param taskList pengu.task.TaskList to print.
      */
     public void printTaskList(TaskList taskList) {
         printMessage(taskList.toString());
@@ -30,8 +35,8 @@ public class Ui {
 
     /**
      * Prints a message that says a task has been added, and how many tasks are in the list.
-     * @param task Task added.
-     * @param taskList TaskList the task is added to.
+     * @param task pengu.task.Task added.
+     * @param taskList pengu.task.TaskList the task is added to.
      */
     public void printAddTaskMessage(Task task, TaskList taskList) {
         String message = "Got it, I've added this task:\n  " + task + "\n"
@@ -41,8 +46,8 @@ public class Ui {
 
     /**
      * Prints a message that says a task has been deleted, and how many tasks are left in the list.
-     * @param task Task deleted.
-     * @param taskList TaskList the task is deleted from.
+     * @param task pengu.task.Task deleted.
+     * @param taskList pengu.task.TaskList the task is deleted from.
      */
     public void printDeleteTaskMessage(Task task, TaskList taskList) {
         String message = "Noted. I've removed this task:\n  " + task + "\n"
@@ -52,7 +57,7 @@ public class Ui {
 
     /**
      * Prints a message that says a task has been marked as done.
-     * @param task Task marked as done.
+     * @param task pengu.task.Task marked as done.
      */
     public void printMarkTaskMessage(Task task) {
         String message = "Nice! I've marked this task as done:\n  " + task;
@@ -61,7 +66,7 @@ public class Ui {
 
     /**
      * Prints a message that says a task has been marked as undone.
-     * @param task Task marked as undone.
+     * @param task pengu.task.Task marked as undone.
      */
     public void printUnmarkTaskMessage(Task task) {
         String message = "OK, I've marked this task as not done yet:\n  " + task;

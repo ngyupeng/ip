@@ -1,3 +1,9 @@
+package pengu.task;
+
+import pengu.DateTimeParser;
+import pengu.exception.PenguException;
+import pengu.exception.SaveFileException;
+
 import java.time.LocalDateTime;
 
 public class Task {
@@ -5,7 +11,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor for a Task instance
+     * Constructor for a pengu.task.Task instance
      *
      * @param description Description of task
      */

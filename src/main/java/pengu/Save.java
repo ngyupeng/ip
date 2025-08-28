@@ -1,3 +1,5 @@
+package pengu;
+
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.File;
@@ -5,6 +7,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+
+import pengu.exception.SaveFileException;
+import pengu.task.Task;
+import pengu.task.Deadline;
+import pengu.task.Event;
+import pengu.task.TaskList;
+import pengu.task.Todo;
 
 /**
  * Class to read and write to save file to persist data over runs.
@@ -21,8 +30,8 @@ public class Save {
     }
 
     /**
-     * Save the task list in human-readable format in the save file.
-     * @param taskList Task list to be saved.
+     * pengu.Save the task list in human-readable format in the save file.
+     * @param taskList pengu.task.Task list to be saved.
      */
     public void save(TaskList taskList) throws SaveFileException {
         try {
@@ -37,7 +46,7 @@ public class Save {
 
     /**
      * Returns the task list as saved in the save file.
-     * @return Task list loaded from the save file.
+     * @return pengu.task.Task list loaded from the save file.
      */
     public TaskList load() throws SaveFileException {
         try {

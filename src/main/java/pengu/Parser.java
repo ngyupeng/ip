@@ -1,7 +1,13 @@
+package pengu;
+
 import java.time.LocalDateTime;
 
+import pengu.exception.InvalidFieldException;
+import pengu.exception.MissingFieldException;
+import pengu.exception.PenguException;
+
 /**
- * Parser class to retrieve fields from user input
+ * pengu.Parser class to retrieve fields from user input
  */
 public class Parser {
     private final String input;
