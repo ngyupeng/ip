@@ -7,7 +7,7 @@ import pengu.exception.MissingFieldException;
 import pengu.exception.PenguException;
 
 /**
- * pengu.Parser class to retrieve fields from user input
+ * Parser class to retrieve fields from user input
  */
 public class Parser {
     private final String input;

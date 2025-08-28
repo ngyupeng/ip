@@ -10,6 +10,9 @@ import pengu.task.Event;
 import pengu.task.TaskList;
 import pengu.task.Todo;
 
+/**
+ * Penguin inspired chatbot named Pengu.
+ */
 public class Pengu {
     private TaskList taskList;
     private Ui ui;

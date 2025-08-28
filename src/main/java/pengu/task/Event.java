@@ -6,18 +6,18 @@ import pengu.exception.SaveFileException;
 import java.time.LocalDateTime;
 
 /**
- * Class that specifies a task which is an pengu.task.Event
- * Start and end of event are stored in the class
+ * Class that specifies a task which is an Event.
+ * Start and end of event are stored in the class.
  */
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
     /**
-     * Constructor for a pengu.task.Deadline instance
-     * @param description Description of task
-     * @param from Start of event
-     * @param to End of event
+     * Constructor for an Event instance.
+     * @param description Description of task.
+     * @param from Start of event.
+     * @param to End of event.
      */
     public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
@@ -26,10 +26,10 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a pengu.task.Event object as represented in the line in the save file.
+     * Returns a Event object as represented in the line in the save file.
      * @param line The line in the save file.
      * @return A event represented by the line.
-     * @throws SaveFileException If the line is not a valid pengu.task.Event representation.
+     * @throws SaveFileException If the line is not a valid Event representation.
      */
     public static Event fromSaveFileFormat(String line) throws SaveFileException {
         String[] fields = line.split(" \\| ");
@@ -46,7 +46,7 @@ public class Event extends Task {
     }
 
     /**
-     * @return String representation of the deadline task
+     * @return String representation of the event task.
      */
     @Override
     public String toString() {
