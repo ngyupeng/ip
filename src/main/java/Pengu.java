@@ -2,11 +2,12 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 
 public class Pengu {
-    private static final String NAME = "Pengu";
     private TaskList taskList;
+    private Ui ui;
 
     public void run() {
-        greet();
+        ui = new Ui();
+        ui.greet();
 
         try {
             Save save = new Save();
@@ -21,11 +22,11 @@ public class Pengu {
                 try {
                     switch (command) {
                         case "bye" -> {
-                            exit();
+                            ui.exit();
                             save.save(taskList);
                             return;
                         }
-                        case "list" -> printTaskList();
+                        case "list" -> ui.printTaskList(taskList);
                         case "mark" -> processMark(parser);
                         case "unmark" -> processUnmark(parser);
                         case "todo" -> processTodo(parser);
@@ -35,26 +36,12 @@ public class Pengu {
                         default -> throw new InvalidCommandException();
                     }
                 } catch (PenguException e) {
-                    printMessage(e.getMessage());
+                    ui.printError(e.getMessage());
                 }
             }
         } catch (PenguException e) {
-            printMessage(e.getMessage());
+            ui.printError(e.getMessage());
         }
-    }
-
-    private void greet() {
-        String greetMessage = String.format("Hello! I'm %s\n" + "What can I do for you?", NAME);
-        printMessage(greetMessage);
-    }
-
-    private void exit() {
-        String exitMessage = "Bye. Hope to see you again soon!";
-        printMessage(exitMessage);
-    }
-
-    private void printTaskList() {
-        printMessage(taskList.toString());
     }
 
     private void processMark(Parser parser) throws PenguException {
@@ -63,8 +50,7 @@ public class Pengu {
         int taskIndex = parser.getIntField("", markFormat);
         taskList.markAsDone(taskIndex);
 
-        String message = "Nice! I've marked this task as done:\n  " + taskList.get(taskIndex);
-        printMessage(message);
+        ui.printMarkTaskMessage(taskList.get(taskIndex));
     }
 
     private void processUnmark(Parser parser) throws PenguException {
@@ -73,15 +59,14 @@ public class Pengu {
         int taskIndex = parser.getIntField("", unmarkFormat);
         taskList.markAsUndone(taskIndex);
 
-        String message = "OK, I've marked this task as not done yet:\n  " + taskList.get(taskIndex);
-        printMessage(message);
+        ui.printUnmarkTaskMessage(taskList.get(taskIndex));
     }
 
     private void processDelete(Parser parser) throws PenguException {
         final String deleteFormat = "delete <index>";
         int taskIndex = parser.getIntField("", deleteFormat);
 
-        printDeleteTaskMessage(taskList.get(taskIndex));
+        ui.printDeleteTaskMessage(taskList.get(taskIndex), taskList);
         taskList.remove(taskIndex);
     }
     
@@ -92,7 +77,7 @@ public class Pengu {
 
         Todo todo = new Todo(taskDesc, false);
         taskList.add(todo);
-        printAddTaskMessage(todo);
+        ui.printAddTaskMessage(todo, taskList);
     }
 
     private void processDeadline(Parser parser) throws PenguException {
@@ -105,7 +90,7 @@ public class Pengu {
 
         Deadline deadline = new Deadline(description, false, by);
         taskList.add(deadline);
-        printAddTaskMessage(deadline);
+        ui.printAddTaskMessage(deadline, taskList);
     }
 
     private void processEvent(Parser parser) throws PenguException {
@@ -117,37 +102,7 @@ public class Pengu {
 
         Event event = new Event(description, false, from, to);
         taskList.add(event);
-        printAddTaskMessage(event);
-    }
-
-    private void printAddTaskMessage(Task task) {
-        String message = "Got it, I've added this task:\n  " + task + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list.";
-        printMessage(message);
-    }
-
-    private void printDeleteTaskMessage(Task task) {
-        String message = "Noted. I've removed this task:\n  " + task + "\n"
-                + "Now you have " + (taskList.size() - 1) + " tasks in the list.";
-        printMessage(message);
-    }
-
-    private void printMessage(String message) {
-        final String PADDING = " ".repeat(4);
-        printLine();
-
-        String[] lines = message.split("\n");
-        for (String line : lines) {
-            System.out.println(PADDING + line);
-        }
-
-        printLine();
-    }
-
-    private void printLine() {
-        final String LINE = "_".repeat(60);
-        final String PADDING = " ".repeat(4);
-        System.out.println(PADDING + LINE);
+        ui.printAddTaskMessage(event, taskList);
     }
 
     public static void main(String[] args) {
