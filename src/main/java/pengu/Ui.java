@@ -56,6 +56,15 @@ public class Ui {
     }
 
     /**
+     * Prints the list of tasks whose description has a string matching the user provided string to find.
+     * @param taskList The list of tasks found.
+     */
+    public void printFoundTasks(TaskList taskList) {
+        String message = "Here are the matching tasks in your list:\n" + taskList.toString();
+        printMessage(message);
+    }
+
+    /**
      * Prints a message that says a task has been marked as done.
      * @param task Task marked as done.
      */

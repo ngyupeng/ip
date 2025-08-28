@@ -29,4 +29,8 @@ delete
 deadline run around /by 2025-06-30
 event run up /from 2025-06-30 11:00 /to 2025-06-30
 event run down /from 2025-06-30 /to 2025-06-30 11:00
+todo Cook lunch
+find lunch
+find from
+find t l
 bye
