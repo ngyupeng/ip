@@ -21,6 +21,10 @@ import pengu.task.Todo;
 public class Save {
     public static final String SAVE_FILE_PATH = "./data/pengu.txt";
 
+    /**
+     * Constructor for the Save instance.
+     * @throws SaveFileException If there is some error creating the save directory and file.
+     */
     public Save() throws SaveFileException {
         Path path = Paths.get(SAVE_FILE_PATH);
         if (!Files.exists(path)) {

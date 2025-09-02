@@ -11,11 +11,11 @@ import pengu.exception.InvalidFieldException;
  */
 public class DateTimeParser {
     public static final String INPUT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
-    public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER
-            = DateTimeFormatter.ofPattern(INPUT_DATE_TIME_FORMAT);
+    public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern(INPUT_DATE_TIME_FORMAT);
     public static final String OUTPUT_DATE_TIME_FORMAT = "MMM dd yyyy HH:mm";
-    public static final DateTimeFormatter OUTPUT_DATE_TIME_FORMATTER
-            = DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT);
+    public static final DateTimeFormatter OUTPUT_DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT);
 
     /**
      * Convert string to LocalDateTime object.

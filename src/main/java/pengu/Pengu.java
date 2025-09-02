@@ -1,7 +1,7 @@
 package pengu;
 
-import java.util.Scanner;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 import pengu.exception.InvalidCommandException;
 import pengu.exception.PenguException;
@@ -10,10 +10,16 @@ import pengu.task.Event;
 import pengu.task.TaskList;
 import pengu.task.Todo;
 
+/**
+ * A friendly and helpful penguin chatbot to help you remember tasks.
+ */
 public class Pengu {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Runs the main user interaction loop.
+     */
     public void run() {
         ui = new Ui();
         ui.greet();
@@ -30,20 +36,20 @@ public class Pengu {
 
                 try {
                     switch (command) {
-                        case "bye" -> {
-                            ui.exit();
-                            save.save(taskList);
-                            return;
-                        }
-                        case "list" -> ui.printTaskList(taskList);
-                        case "mark" -> processMark(parser);
-                        case "unmark" -> processUnmark(parser);
-                        case "todo" -> processTodo(parser);
-                        case "deadline" -> processDeadline(parser);
-                        case "event" -> processEvent(parser);
-                        case "delete" -> processDelete(parser);
-                        case "find" -> processFind(parser);
-                        default -> throw new InvalidCommandException();
+                    case "bye" -> {
+                        ui.exit();
+                        save.save(taskList);
+                        return;
+                    }
+                    case "list" -> ui.printTaskList(taskList);
+                    case "mark" -> processMark(parser);
+                    case "unmark" -> processUnmark(parser);
+                    case "todo" -> processTodo(parser);
+                    case "deadline" -> processDeadline(parser);
+                    case "event" -> processEvent(parser);
+                    case "delete" -> processDelete(parser);
+                    case "find" -> processFind(parser);
+                    default -> throw new InvalidCommandException();
                     }
                 } catch (PenguException e) {
                     ui.printError(e.getMessage());
@@ -87,7 +93,7 @@ public class Pengu {
         TaskList foundTasks = taskList.find(toFind);
         ui.printFoundTasks(foundTasks);
     }
-    
+
     private void processTodo(Parser parser) throws PenguException {
         final String todoFormat = "todo <description>";
 
