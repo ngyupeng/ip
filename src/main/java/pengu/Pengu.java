@@ -1,7 +1,6 @@
 package pengu;
 
 import java.time.LocalDateTime;
-import java.util.Scanner;
 
 import pengu.exception.InvalidCommandException;
 import pengu.exception.PenguException;
@@ -15,96 +14,139 @@ import pengu.task.Todo;
  */
 public class Pengu {
     private TaskList taskList;
-    private Ui ui;
+    private final Ui ui;
+    private Save save;
+
+    private boolean running = true;
+    private boolean saveFileOk = true;
+    private String startupSaveFileError;
 
     /**
-     * Runs the main user interaction loop.
+     * Constructor for Pengu.
      */
-    public void run() {
+    public Pengu() {
         ui = new Ui();
-        ui.greet();
 
         try {
-            Save save = new Save();
+            save = new Save();
             taskList = save.load();
-
-            Scanner scanner = new Scanner(System.in);
-            while (true) {
-                String input = scanner.nextLine();
-                Parser parser = new Parser(input);
-                String command = parser.getCommand();
-
-                try {
-                    switch (command) {
-                    case "bye" -> {
-                        ui.exit();
-                        save.save(taskList);
-                        return;
-                    }
-                    case "list" -> ui.printTaskList(taskList);
-                    case "mark" -> processMark(parser);
-                    case "unmark" -> processUnmark(parser);
-                    case "todo" -> processTodo(parser);
-                    case "deadline" -> processDeadline(parser);
-                    case "event" -> processEvent(parser);
-                    case "delete" -> processDelete(parser);
-                    case "find" -> processFind(parser);
-                    default -> throw new InvalidCommandException();
-                    }
-                } catch (PenguException e) {
-                    ui.printError(e.getMessage());
-                }
-            }
         } catch (PenguException e) {
-            ui.printError(e.getMessage());
+            saveFileOk = false;
+            running = false;
+            startupSaveFileError = e.getMessage();
         }
     }
 
-    private void processMark(Parser parser) throws PenguException {
+    /**
+     * Returns the startup message for the bot.
+     * If failed to load save file, returns an error message.
+     */
+    public String getStartupMessage() {
+        if (!saveFileOk) {
+            return startupSaveFileError;
+        } else {
+            return ui.getGreetingMessage();
+        }
+    }
+
+    /**
+     * Returns a response based on the user input.
+     */
+    public String getResponse(String input) {
+        Parser parser = new Parser(input);
+        String command = parser.getCommand();
+
+        try {
+            switch (command) {
+            case "bye" -> {
+                running = false;
+                save.save(taskList);
+                return ui.getExitMessage();
+            }
+            case "list" -> {
+                return ui.getTaskListMessage(taskList);
+            }
+            case "mark" -> {
+                return processMark(parser);
+            }
+            case "unmark" -> {
+                return processUnmark(parser);
+            }
+            case "todo" -> {
+                return processTodo(parser);
+            }
+            case "deadline" -> {
+                return processDeadline(parser);
+            }
+            case "event" -> {
+                return processEvent(parser);
+            }
+            case "delete" -> {
+                return processDelete(parser);
+            }
+            case "find" -> {
+                return processFind(parser);
+            }
+            default -> throw new InvalidCommandException();
+            }
+        } catch (PenguException e) {
+            return ui.getErrorMessage(e.getMessage());
+        }
+    }
+
+    /**
+     * Returns whether the Pengu bot is still running.
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+    private String processMark(Parser parser) throws PenguException {
         final String markFormat = "mark <index>";
 
         int taskIndex = parser.getIntField("", markFormat);
         taskList.markAsDone(taskIndex);
 
-        ui.printMarkTaskMessage(taskList.get(taskIndex));
+        return ui.getMarkTaskMessage(taskList.get(taskIndex));
     }
 
-    private void processUnmark(Parser parser) throws PenguException {
+    private String processUnmark(Parser parser) throws PenguException {
         final String unmarkFormat = "unmark <index>";
 
         int taskIndex = parser.getIntField("", unmarkFormat);
         taskList.markAsUndone(taskIndex);
 
-        ui.printUnmarkTaskMessage(taskList.get(taskIndex));
+        return ui.getUnmarkTaskMessage(taskList.get(taskIndex));
     }
 
-    private void processDelete(Parser parser) throws PenguException {
+    private String processDelete(Parser parser) throws PenguException {
         final String deleteFormat = "delete <index>";
         int taskIndex = parser.getIntField("", deleteFormat);
 
-        ui.printDeleteTaskMessage(taskList.get(taskIndex), taskList);
+        String message = ui.getDeleteTaskMessage(taskList.get(taskIndex), taskList);
         taskList.remove(taskIndex);
+        return message;
     }
 
-    private void processFind(Parser parser) throws PenguException {
+    private String processFind(Parser parser) throws PenguException {
         final String findFormat = "find <string_to_find>";
         String toFind = parser.getField("", findFormat);
 
         TaskList foundTasks = taskList.find(toFind);
-        ui.printFoundTasks(foundTasks);
+        return ui.getFoundTasksMessage(foundTasks);
     }
 
-    private void processTodo(Parser parser) throws PenguException {
+    private String processTodo(Parser parser) throws PenguException {
         final String todoFormat = "todo <description>";
 
         String taskDesc = parser.getField("", todoFormat);
 
         Todo todo = new Todo(taskDesc, false);
         taskList.add(todo);
-        ui.printAddTaskMessage(todo, taskList);
+        return ui.getAddTaskMessage(todo, taskList);
     }
 
-    private void processDeadline(Parser parser) throws PenguException {
+    private String processDeadline(Parser parser) throws PenguException {
         final String deadlineFormat = "deadline <description> /by <by>";
 
         String description = parser.getField(" /by ", deadlineFormat);
@@ -114,10 +156,10 @@ public class Pengu {
 
         Deadline deadline = new Deadline(description, false, by);
         taskList.add(deadline);
-        ui.printAddTaskMessage(deadline, taskList);
+        return ui.getAddTaskMessage(deadline, taskList);
     }
 
-    private void processEvent(Parser parser) throws PenguException {
+    private String processEvent(Parser parser) throws PenguException {
         final String eventFormat = "event <description> /from <from> /to <to>";
 
         String description = parser.getField(" /from ", eventFormat);
@@ -126,11 +168,6 @@ public class Pengu {
 
         Event event = new Event(description, false, from, to);
         taskList.add(event);
-        ui.printAddTaskMessage(event, taskList);
-    }
-
-    public static void main(String[] args) {
-        Pengu pengu = new Pengu();
-        pengu.run();
+        return ui.getAddTaskMessage(event, taskList);
     }
 }

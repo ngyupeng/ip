@@ -4,108 +4,80 @@ import pengu.task.Task;
 import pengu.task.TaskList;
 
 /**
- * Class to handle printing responses to user input.
+ * Class to handle crafting responses to user input.
  */
 public class Ui {
     private static final String NAME = "Pengu";
 
     /**
-     * Prints greeting message.
+     * Returns a greeting message.
      */
-    public void greet() {
+    public String getGreetingMessage() {
         String greetMessage = String.format("Hello! I'm %s\n" + "What can I do for you?", NAME);
-        printMessage(greetMessage);
+        return greetMessage;
     }
 
     /**
-     * Prints farewell message.
+     * Returns an exit message.
      */
-    public void exit() {
+    public String getExitMessage() {
         String exitMessage = "Bye. Hope to see you again soon!";
-        printMessage(exitMessage);
+        return exitMessage;
     }
 
     /**
-     * Prints out the task list.
-     * @param taskList TaskList to print.
+     * Returns a message showing the task list;
      */
-    public void printTaskList(TaskList taskList) {
-        printMessage(taskList.toString());
+    public String getTaskListMessage(TaskList taskList) {
+        return taskList.toString();
     }
 
     /**
-     * Prints a message that says a task has been added, and how many tasks are in the list.
-     * @param task Task added.
-     * @param taskList TaskList the task is added to.
+     * Returns a message that says a task has been added, and how many tasks are in the list.
      */
-    public void printAddTaskMessage(Task task, TaskList taskList) {
+    public String getAddTaskMessage(Task task, TaskList taskList) {
         String message = "Got it, I've added this task:\n  " + task + "\n"
                 + "Now you have " + taskList.getSize() + " tasks in the list.";
-        printMessage(message);
+        return message;
     }
 
     /**
-     * Prints a message that says a task has been deleted, and how many tasks are left in the list.
-     * @param task Task deleted.
-     * @param taskList TaskList the task is deleted from.
+     * Returns a message that says a task has been deleted, and how many tasks are left in the list.
      */
-    public void printDeleteTaskMessage(Task task, TaskList taskList) {
+    public String getDeleteTaskMessage(Task task, TaskList taskList) {
         String message = "Noted. I've removed this task:\n  " + task + "\n"
                 + "Now you have " + (taskList.getSize() - 1) + " tasks in the list.";
-        printMessage(message);
+        return message;
     }
 
     /**
-     * Prints the list of tasks whose description has a string matching the user provided string to find.
-     * @param taskList The list of tasks found.
+     * Returns the list of tasks whose description has a string matching the user provided string to find.
      */
-    public void printFoundTasks(TaskList taskList) {
+    public String getFoundTasksMessage(TaskList taskList) {
         String message = "Here are the matching tasks in your list:\n" + taskList.toString();
-        printMessage(message);
+        return message;
     }
 
     /**
-     * Prints a message that says a task has been marked as done.
-     * @param task Task marked as done.
+     * Returns a message that says a task has been marked as done.
      */
-    public void printMarkTaskMessage(Task task) {
+    public String getMarkTaskMessage(Task task) {
         String message = "Nice! I've marked this task as done:\n  " + task;
-        printMessage(message);
+        return message;
     }
 
     /**
-     * Prints a message that says a task has been marked as undone.
-     * @param task Task marked as undone.
+     * Returns a message that says a task has been marked as undone.
      */
-    public void printUnmarkTaskMessage(Task task) {
+    public String getUnmarkTaskMessage(Task task) {
         String message = "OK, I've marked this task as not done yet:\n  " + task;
-        printMessage(message);
+        return message;
     }
 
     /**
-     * Prints out an error message, emphasising with "ERROR!!".
-     *
-     * @param message Error message.
+     * Returns an error message, emphasising with "ERROR!!".
      */
-    public void printError(String message) {
-        printMessage("ERROR!!\n" + message);
-    }
-
-    private void printMessage(String message) {
-        final String padding = " ".repeat(4);
-        printLine();
-
-        String[] lines = message.split("\n");
-        for (String line : lines) {
-            System.out.println(padding + line);
-        }
-
-        printLine();
-    }
-
-    private void printLine() {
-        final String line = "_".repeat(60);
-        final String padding = " ".repeat(4);
-        System.out.println(padding + line);
+    public String getErrorMessage(String message) {
+        return "ERROR!!\n" + message;
     }
 }
