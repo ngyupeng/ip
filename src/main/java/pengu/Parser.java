@@ -7,13 +7,17 @@ import pengu.exception.MissingFieldException;
 import pengu.exception.PenguException;
 
 /**
- * Parser class to retrieve fields from user input
+ * Parser class to retrieve fields from user input with error handling.
  */
 public class Parser {
     private final String input;
     private final String command;
     private int curIndex;
 
+    /**
+     * Constructor for Parser instance.
+     * @param input String received as input.
+     */
     public Parser(String input) {
         this.input = input;
 

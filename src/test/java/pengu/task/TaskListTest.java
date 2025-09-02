@@ -61,14 +61,16 @@ public class TaskListTest {
             taskList.remove(0);
             fail();
         } catch (InvalidFieldException e) {
-            assertEquals("Oh no! Your field(s) provided caused the following error:\n" + "Expected: integer value in range [1, 1]\n" + "Given: 0", e.getMessage());
+            assertEquals("Oh no! Your field(s) provided caused the following error:\n"
+                    + "Expected: integer value in range [1, 1]\n" + "Given: 0", e.getMessage());
         }
 
         try {
             taskList.remove(2);
             fail();
         } catch (InvalidFieldException e) {
-            assertEquals("Oh no! Your field(s) provided caused the following error:\n" + "Expected: integer value in range [1, 1]\n" + "Given: 2", e.getMessage());
+            assertEquals("Oh no! Your field(s) provided caused the following error:\n"
+                    + "Expected: integer value in range [1, 1]\n" + "Given: 2", e.getMessage());
         }
     }
 }
