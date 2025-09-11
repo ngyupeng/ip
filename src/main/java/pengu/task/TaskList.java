@@ -76,9 +76,10 @@ public class TaskList {
 
     private void checkIndex(int index) throws InvalidFieldException {
         if (index <= 0 || index > taskList.size()) {
-            throw new InvalidFieldException(String.format(
+            String errorMessage = String.format(
                     "Expected: integer value in range [1, %d]\n", taskList.size())
-                    + "Given: " + index);
+                    + "Given: " + index;
+            throw new InvalidFieldException(errorMessage);
         }
     }
 

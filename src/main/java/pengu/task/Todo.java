@@ -23,7 +23,8 @@ public class Todo extends Task {
     public static Todo fromSaveFileFormat(String line) throws SaveFileException {
         String[] fields = line.split(" \\| ");
         if (fields.length != 3) {
-            throw new SaveFileException("Unknown task format found in save file:\n" + line);
+            String errorMessage = "Unknown task format found in save file:\n" + line;
+            throw new SaveFileException(errorMessage);
         }
 
         boolean isDone = Task.fromIsDoneStr(fields[1]);

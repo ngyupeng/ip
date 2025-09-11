@@ -78,9 +78,11 @@ public class Task {
         case "0" -> {
             return false;
         }
-        default -> throw new SaveFileException(
-                "Expected: 0 or 1 for is done representation in save file\n"
-                + "Got: " + str);
+        default -> {
+            String errorMessage = "Expected: 0 or 1 for is done representation in save file\n"
+                    + "Got: " + str;
+            throw new SaveFileException(errorMessage);
+        }
         }
     }
 
