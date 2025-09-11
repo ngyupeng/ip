@@ -16,6 +16,7 @@ public class Parser {
 
     /**
      * Constructor for Parser instance.
+     *
      * @param input String received as input.
      */
     public Parser(String input) {
@@ -51,8 +52,9 @@ public class Parser {
      */
     public String getField(String delim, String commandFormat) throws MissingFieldException {
         assert curIndex <= input.length() : "Parser: curIndex is larger than input length.";
-
-        int delimIndex = delim.isEmpty() ? input.length() : input.indexOf(delim, curIndex);
+        int delimIndex = delim.isEmpty()
+                ? input.length()
+                : input.indexOf(delim, curIndex);
 
         if (delimIndex == -1) {
             throw new MissingFieldException(commandFormat);
@@ -83,8 +85,9 @@ public class Parser {
         try {
             return Integer.parseInt(field);
         } catch (NumberFormatException e) {
-            throw new InvalidFieldException("Expected: integer value field\n"
-                    + "Given: " + field);
+            String errorMessage = "Expected: integer value field\n"
+                    + "Given: " + field;
+            throw new InvalidFieldException(errorMessage);
         }
     }
 

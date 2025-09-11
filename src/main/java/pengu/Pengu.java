@@ -6,6 +6,7 @@ import pengu.exception.InvalidCommandException;
 import pengu.exception.PenguException;
 import pengu.task.Deadline;
 import pengu.task.Event;
+import pengu.task.Task;
 import pengu.task.TaskList;
 import pengu.task.Todo;
 
@@ -17,7 +18,7 @@ public class Pengu {
     private final Ui ui;
     private Save save;
 
-    private boolean running = true;
+    private boolean isRunning = true;
     private boolean saveFileOk = true;
     private String startupSaveFileError;
 
@@ -32,7 +33,7 @@ public class Pengu {
             taskList = save.load();
         } catch (PenguException e) {
             saveFileOk = false;
-            running = false;
+            isRunning = false;
             startupSaveFileError = e.getMessage();
         }
     }
@@ -59,7 +60,7 @@ public class Pengu {
         try {
             switch (command) {
             case "bye" -> {
-                running = false;
+                isRunning = false;
                 save.save(taskList);
                 return ui.getExitMessage();
             }
@@ -98,7 +99,7 @@ public class Pengu {
      * Returns whether the Pengu bot is still running.
      */
     public boolean isRunning() {
-        return running;
+        return isRunning;
     }
 
     private String processMark(Parser parser) throws PenguException {
@@ -107,7 +108,8 @@ public class Pengu {
         int taskIndex = parser.getIntField("", markFormat);
         taskList.markAsDone(taskIndex);
 
-        return ui.getMarkTaskMessage(taskList.get(taskIndex));
+        Task taskToMark = taskList.get(taskIndex);
+        return ui.getMarkTaskMessage(taskToMark);
     }
 
     private String processUnmark(Parser parser) throws PenguException {
@@ -116,7 +118,8 @@ public class Pengu {
         int taskIndex = parser.getIntField("", unmarkFormat);
         taskList.markAsUndone(taskIndex);
 
-        return ui.getUnmarkTaskMessage(taskList.get(taskIndex));
+        Task taskToUnmark = taskList.get(taskIndex);
+        return ui.getUnmarkTaskMessage(taskToUnmark);
     }
 
     private String processDelete(Parser parser) throws PenguException {

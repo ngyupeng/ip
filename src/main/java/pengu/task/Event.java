@@ -15,9 +15,10 @@ public class Event extends Task {
 
     /**
      * Constructor for an Event instance.
+     *
      * @param description Description of task.
-     * @param from Start of event.
-     * @param to End of event.
+     * @param from        Start of event.
+     * @param to          End of event.
      */
     public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
@@ -27,6 +28,7 @@ public class Event extends Task {
 
     /**
      * Returns a Event object as represented in the line in the save file.
+     *
      * @param line The line in the save file.
      * @return A event represented by the line.
      * @throws SaveFileException If the line is not a valid Event representation.
@@ -34,7 +36,8 @@ public class Event extends Task {
     public static Event fromSaveFileFormat(String line) throws SaveFileException {
         String[] fields = line.split(" \\| ");
         if (fields.length != 5) {
-            throw new SaveFileException("Unknown task format found in save file:\n" + line);
+            String errorMessage = "Unknown task format found in save file:\n" + line;
+            throw new SaveFileException(errorMessage);
         }
 
         boolean isDone = Task.fromIsDoneStr(fields[1]);

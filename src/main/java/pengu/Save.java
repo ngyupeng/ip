@@ -43,8 +43,9 @@ public class Save {
             writer.write(taskList.toSaveFileFormat());
             writer.close();
         } catch (IOException e) {
-            throw new SaveFileException("Failed to write to " + SAVE_FILE_PATH
-                    + "\n" + e.getMessage());
+            String errorMessage = "Failed to write to " + SAVE_FILE_PATH
+                    + "\n" + e.getMessage();
+            throw new SaveFileException(errorMessage);
         }
     }
 
@@ -64,8 +65,9 @@ public class Save {
             }
             return taskList;
         } catch (IOException e) {
-            throw new SaveFileException("Failed to load from " + SAVE_FILE_PATH
-                    + "\n" + e.getMessage());
+            String errorMessage = "Failed to load from " + SAVE_FILE_PATH
+                    + "\n" + e.getMessage();
+            throw new SaveFileException(errorMessage);
         }
     }
 
@@ -75,7 +77,8 @@ public class Save {
         try {
             Files.createDirectory(path);
         } catch (IOException e) {
-            throw new SaveFileException("Failed to create directory ./data\n" + e.getMessage());
+            String errorMessage = "Failed to create directory ./data\n" + e.getMessage();
+            throw new SaveFileException(errorMessage);
         }
     }
 
@@ -85,8 +88,9 @@ public class Save {
         try {
             Files.createFile(path);
         } catch (IOException e) {
-            throw new SaveFileException("Failed to create file " + SAVE_FILE_PATH
-                    + "\n" + e.getMessage());
+            String errorMessage = "Failed to create file " + SAVE_FILE_PATH
+                    + "\n" + e.getMessage();
+            throw new SaveFileException(errorMessage);
         }
     }
 
@@ -98,7 +102,8 @@ public class Save {
         } else if (line.startsWith("E | ")) {
             return Event.fromSaveFileFormat(line);
         } else {
-            throw new SaveFileException("Line with unknown format found in save file:\n" + line);
+            String errorMessage = "Line with unknown format found in save file:\n" + line;
+            throw new SaveFileException(errorMessage);
         }
     }
 }
