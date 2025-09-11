@@ -50,6 +50,8 @@ public class Parser {
      * @throws MissingFieldException If delimiter not found or field is empty.
      */
     public String getField(String delim, String commandFormat) throws MissingFieldException {
+        assert curIndex <= input.length() : "Parser: curIndex is larger than input length.";
+
         int delimIndex = delim.isEmpty() ? input.length() : input.indexOf(delim, curIndex);
 
         if (delimIndex == -1) {
