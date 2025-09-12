@@ -3,6 +3,8 @@ package pengu.task;
 import java.time.LocalDateTime;
 
 import pengu.DateTimeParser;
+import pengu.exception.InvalidFieldException;
+import pengu.exception.PenguException;
 import pengu.exception.SaveFileException;
 
 /**
@@ -10,8 +12,8 @@ import pengu.exception.SaveFileException;
  * Start and end of event are stored in the class.
  */
 public class Event extends Task {
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructor for an Event instance.
@@ -24,6 +26,30 @@ public class Event extends Task {
         super(description, isDone);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public void updateField(String fieldLabel, String value) throws InvalidFieldException {
+        try {
+            switch (fieldLabel) {
+            case "/from" -> updateFrom(value);
+            case "/to" -> updateTo(value);
+            default -> super.updateField(fieldLabel, value);
+            }
+        } catch (PenguException e) {
+            String errorMessage = "Invalid field label for event!\n"
+                    + "Please specify one of the following:\n"
+                    + "  /desc, /from, /to.";
+            throw new InvalidFieldException(errorMessage);
+        }
+    }
+
+    private void updateFrom(String value) throws InvalidFieldException {
+        from = DateTimeParser.fromDateTimeString(value);
+    }
+
+    private void updateTo(String value) throws InvalidFieldException {
+        to = DateTimeParser.fromDateTimeString(value);
     }
 
     /**

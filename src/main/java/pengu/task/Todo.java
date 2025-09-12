@@ -1,5 +1,7 @@
 package pengu.task;
 
+import pengu.exception.InvalidFieldException;
+import pengu.exception.PenguException;
 import pengu.exception.SaveFileException;
 
 /**
@@ -12,6 +14,18 @@ public class Todo extends Task {
      */
     public Todo(String description, boolean isDone) {
         super(description, isDone);
+    }
+
+    @Override
+    public void updateField(String fieldLabel, String value) throws InvalidFieldException {
+        try {
+            super.updateField(fieldLabel, value);
+        } catch (PenguException e) {
+            String errorMessage = "Invalid field label for todo!\n"
+                    + "Please specify one of the following:\n"
+                    + "  /desc.";
+            throw new InvalidFieldException(errorMessage);
+        }
     }
 
     /**

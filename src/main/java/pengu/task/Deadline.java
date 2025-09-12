@@ -3,13 +3,15 @@ package pengu.task;
 import java.time.LocalDateTime;
 
 import pengu.DateTimeParser;
+import pengu.exception.InvalidFieldException;
+import pengu.exception.PenguException;
 import pengu.exception.SaveFileException;
 
 /**
  * Class that specifies a task which has a deadline for completion.
  */
 public class Deadline extends Task {
-    private final LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Constructor for a Deadline instance
@@ -20,6 +22,27 @@ public class Deadline extends Task {
         super(description, isDone);
         this.by = by;
     }
+
+    @Override
+    public void updateField(String fieldLabel, String value) throws InvalidFieldException {
+        try {
+            if (fieldLabel.equals("/by")) {
+                updateBy(value);
+            } else {
+                super.updateField(fieldLabel, value);
+            }
+        } catch (PenguException e) {
+            String errorMessage = "Invalid field label for deadline!\n"
+                    + "Please specify one of the following:\n"
+                    + "  /desc, /by.";
+            throw new InvalidFieldException(errorMessage);
+        }
+    }
+
+    private void updateBy(String value) throws InvalidFieldException {
+        by = DateTimeParser.fromDateTimeString(value);
+    }
+
 
     /**
      * Returns a Deadline object as represented in the line in the save file.

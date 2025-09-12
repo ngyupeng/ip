@@ -88,6 +88,9 @@ public class Pengu {
             case "find" -> {
                 return processFind(parser);
             }
+            case "update" -> {
+                return processUpdate(parser);
+            }
             default -> throw new InvalidCommandException();
             }
         } catch (PenguException e) {
@@ -172,5 +175,17 @@ public class Pengu {
         Event event = new Event(description, false, from, to);
         taskList.add(event);
         return ui.getAddTaskMessage(event, taskList);
+    }
+
+    private String processUpdate(Parser parser) throws PenguException {
+        final String updateFormat = "update <index> </field> <field_value>";
+
+        int taskIndex = parser.getIntField(" ", updateFormat);
+        String fieldLabel = parser.getField(" ", updateFormat);
+        String fieldValue = parser.getField("", updateFormat);
+
+        taskList.updateTask(taskIndex, fieldLabel, fieldValue);
+        Task task = taskList.get(taskIndex);
+        return ui.getUpdateTaskMessage(task);
     }
 }

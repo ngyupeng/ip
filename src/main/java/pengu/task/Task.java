@@ -3,6 +3,7 @@ package pengu.task;
 import java.time.LocalDateTime;
 
 import pengu.DateTimeParser;
+import pengu.exception.InvalidFieldException;
 import pengu.exception.PenguException;
 import pengu.exception.SaveFileException;
 
@@ -51,6 +52,23 @@ public class Task {
      */
     public void markAsUndone() {
         isDone = false;
+    }
+
+    /**
+     * Changes some detail.
+     * Should be overridden in subclasses.
+     *
+     * @param fieldLabel The field to change.
+     * @param value      Value to change to.
+     * @throws InvalidFieldException If fieldLabel is unrecognised.
+     */
+    public void updateField(String fieldLabel, String value) throws InvalidFieldException {
+        if (fieldLabel.equals("/desc")) {
+            description = value;
+        } else {
+            String errorMessage = "Invalid field label! Please specify /desc.";
+            throw new InvalidFieldException(errorMessage);
+        }
     }
 
     /**

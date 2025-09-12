@@ -75,6 +75,14 @@ public class Ui {
     }
 
     /**
+     * Returns a message that says a task has been updated.
+     */
+    public String getUpdateTaskMessage(Task task) {
+        String message = "Great! I've updated the details of this task:\n  " + task;
+        return message;
+    }
+
+    /**
      * Returns an error message, emphasising with "ERROR!!".
      */
     public String getErrorMessage(String message) {

@@ -102,6 +102,19 @@ public class TaskList {
     }
 
     /**
+     * Updates some detail of a task.
+     *
+     * @param index Index of task.
+     * @param fieldLabel The label of the field to update.
+     * @param value The value to update to.
+     * @throws InvalidFieldException If the index is out of bounds, or fieldLabel is not recognised.
+     */
+    public void updateTask(int index, String fieldLabel, String value) throws InvalidFieldException {
+        Task taskToUpdate = get(index);
+        taskToUpdate.updateField(fieldLabel, value);
+    }
+
+    /**
      * Returns a string representation of the TaskList object.
      * Each task in the task list is printed in its own line.
      *
